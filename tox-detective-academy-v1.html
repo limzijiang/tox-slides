@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毒物偵探社 v1 · 案件驅動版 ｜ 新進護理師中毒病人破案訓練</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f5f1e8;
+    --cream-dark:#ebe5d3;
+    --paper:#fdfaf3;
+    --ink:#1c1a17;
+    --ink-soft:#3d3933;
+    --ink-faint:#6f6a5f;
+    --peach:#d97757;
+    --peach-soft:#e9a17c;
+    --stamp:#b8302b;
+    --line:#d4cfc1;
+    --gold:#c89a3a;
+    --teal:#3a7a76;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{font-size:18px}
+  html,body{
+    height:100%;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Noto Sans TC','Inter',sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(184,48,43,.025) 0, transparent 30%),
+      radial-gradient(circle at 80% 70%, rgba(200,154,58,.03) 0, transparent 30%);
+    mix-blend-mode:multiply;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:2;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity:.35;
+  }
+
+  #deck{position:relative;height:100vh;width:100vw;overflow:hidden;z-index:3}
+  .slide{
+    position:absolute;inset:0;
+    padding:6vh 6vw 8vh;
+    display:none;flex-direction:column;justify-content:center;
+    opacity:0;transition:opacity .3s ease;overflow:hidden;
+  }
+  .slide.active{display:flex;opacity:1}
+
+  .slide-tag{
+    position:absolute;top:3vh;left:6vw;
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.5rem;letter-spacing:.15em;
+    color:var(--ink-faint);text-transform:uppercase;
+    display:flex;align-items:center;gap:14px;
+  }
+  .slide-tag::before{content:"";width:28px;height:1px;background:var(--ink-faint)}
+
+  h1,h2,h3,h4,h5{font-family:'Noto Serif TC','Crimson Pro',serif;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+  h1{font-size:clamp(3rem,5.5vw,5.5rem);color:var(--ink)}
+  h2{font-size:clamp(2.4rem,4.2vw,3.8rem)}
+  h3{font-size:clamp(1.8rem,2.5vw,2.4rem)}
+  h4{font-size:1.65rem}
+  p,li{font-size:1.5rem;line-height:1.65;color:var(--ink-soft)}
+  .lede{font-size:1.85rem;color:var(--ink);font-weight:400;line-height:1.55}
+  .micro{font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--peach);font-weight:500}
+
+  /* Title */
+  .title-slide{justify-content:flex-start;padding-top:12vh;align-items:flex-start}
+  .title-eyebrow{font-family:'JetBrains Mono',monospace;font-size:1.6rem;letter-spacing:.25em;color:var(--peach);margin-bottom:1.8rem;text-transform:uppercase}
+  .title-slide h1{font-size:clamp(4rem,7vw,7rem);font-weight:900;letter-spacing:-.02em;line-height:1.05}
+  .title-slide h1 .accent{color:var(--peach);font-style:italic;font-weight:600}
+  .title-sub{margin-top:2.2rem;font-size:1.85rem;color:var(--ink-soft);max-width:60ch;font-weight:300;line-height:1.5}
+  .title-meta{position:absolute;bottom:6vh;left:6vw;right:6vw;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--line);padding-top:1.5rem}
+  .title-meta .left,.title-meta .right{font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.15em;color:var(--ink-faint);text-transform:uppercase}
+  .stamp{position:absolute;right:6vw;top:13vh;font-family:'Noto Serif TC',serif;color:var(--stamp);border:3px solid var(--stamp);padding:.6rem 1.2rem;font-weight:900;font-size:1.8rem;transform:rotate(-8deg);opacity:.85;letter-spacing:.1em}
+  .version-tag{position:absolute;top:6vh;right:6vw;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--peach);letter-spacing:.2em;border:1px solid var(--peach);padding:.3rem .8rem;background:rgba(217,119,87,.05)}
+
+  /* Case file with image */
+  .case-with-image{display:grid;grid-template-columns:1fr 1.15fr;gap:3vw;align-items:center;width:100%}
+  .case-file{
+    background:var(--paper);border:1px solid var(--line);
+    padding:2.5rem 2.8rem;border-radius:2px;
+    box-shadow:0 1px 0 rgba(28,26,23,.04),0 14px 30px -18px rgba(28,26,23,.18);
+    position:relative;
+  }
+  .case-file::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:8px;
+    background:repeating-linear-gradient(45deg,var(--peach) 0 10px,var(--cream-dark) 10px 20px);opacity:.7;
+  }
+  .case-no{font-family:'JetBrains Mono',monospace;color:var(--peach);font-size:1.5rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;font-weight:600}
+  .case-title{font-family:'Noto Serif TC',serif;font-size:clamp(2rem,3.2vw,2.8rem);font-weight:700;color:var(--ink);margin-bottom:1.2rem;line-height:1.15}
+  .case-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.4rem;border-bottom:1px solid var(--line);padding-bottom:1.3rem}
+  .case-meta div{font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em}
+  .case-meta strong{display:block;color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-size:1.55rem;text-transform:none;letter-spacing:0;margin-top:.2rem;font-weight:500}
+  .case-narrative{font-size:1.55rem;line-height:1.7;color:var(--ink)}
+  .case-narrative em{color:var(--peach);font-style:normal;font-weight:600}
+  .case-narrative.hint{margin-top:.9rem;color:var(--ink-faint);font-size:1.5rem;font-style:italic}
+
+  /* Image */
+  .case-figure{position:relative;aspect-ratio:4/5;background:var(--cream-dark);border:1px solid var(--line);overflow:hidden;box-shadow:0 1px 0 rgba(28,26,23,.04),0 18px 35px -22px rgba(28,26,23,.3)}
+  .case-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;display:block}
+  .img-fallback{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:repeating-linear-gradient(45deg,var(--paper) 0 16px,var(--cream-dark) 16px 32px);color:var(--ink-faint);text-align:center;padding:2rem}
+  .img-fallback .fb-icon{font-size:5rem;color:var(--peach);opacity:.7}
+  .img-fallback .fb-title{font-family:'Noto Serif TC',serif;font-size:1.85rem;color:var(--ink);font-weight:700}
+  .img-fallback .fb-sub{font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.2em;text-transform:uppercase}
+  .case-figure figcaption{position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(28,26,23,.85));color:var(--cream);padding:1.5rem 1.5rem .8rem;font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.1em}
+
+  /* Clue */
+  .clue-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:1.5rem}
+  .clue{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--peach);padding:1.4rem 1.6rem;opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+  .clue.revealed{opacity:1;transform:translateY(0)}
+  .clue-label{font-family:'JetBrains Mono',monospace;color:var(--peach);font-size:1.5rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;font-weight:600}
+  .clue h4{font-family:'Noto Serif TC',serif;font-size:1.75rem;color:var(--ink);margin-bottom:.7rem;font-weight:700}
+  .clue ul{list-style:none;padding:0}
+  .clue li{font-size:1.5rem;line-height:1.65;color:var(--ink-soft);padding:.15rem 0}
+  .clue li::before{content:"▸  ";color:var(--peach);font-weight:700}
+  .clue strong{color:var(--ink);font-weight:700}
+  .clue-with-image{display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;margin-top:1.5rem}
+
+  /* Deduce */
+  .deduce{text-align:center;padding:0 2vw}
+  .deduce .micro{margin-bottom:1.2rem;display:block}
+  .deduce h2{margin-bottom:2.2rem}
+  .deduce h2 em{color:var(--peach);font-style:italic}
+  .options{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;max-width:1100px;margin:0 auto}
+  .option{background:var(--paper);border:1.5px solid var(--line);padding:1.4rem 1.8rem;text-align:left;font-size:1.55rem;color:var(--ink);border-radius:2px;transition:all .25s ease;line-height:1.45}
+  .option:hover{border-color:var(--peach);transform:translateY(-2px)}
+  .option .letter{font-family:'JetBrains Mono',monospace;color:var(--peach);font-weight:700;margin-right:.7rem;font-size:1.55rem}
+  .deduce-hint{margin-top:1.8rem;font-style:italic;color:var(--ink-faint);font-size:1.5rem}
+
+  /* Verdict */
+  .verdict{display:grid;grid-template-columns:1.1fr 1fr;gap:3vw;align-items:center}
+  .verdict-stamp{display:inline-block;font-family:'Noto Serif TC',serif;color:var(--stamp);border:3px solid var(--stamp);padding:.35rem 1rem;font-weight:900;font-size:1.5rem;letter-spacing:.15em;transform:rotate(-3deg);margin-bottom:1.3rem}
+  .verdict h2{margin-bottom:1.2rem;font-size:clamp(2.4rem,3.8vw,3.4rem)}
+  .verdict h2 .toxin{color:var(--peach);display:block;font-size:.7em;font-style:italic;font-weight:600}
+  .verdict-body{font-size:1.55rem;line-height:1.7;color:var(--ink-soft)}
+  .verdict-quip{font-size:1.6rem;line-height:1.65;color:var(--ink);font-style:italic;font-family:'Noto Serif TC',serif;border-left:3px solid var(--peach);padding-left:1.2rem;margin-top:1.4rem}
+  .action-card{background:var(--paper);border:1px solid var(--line);padding:1.8rem 2rem;border-radius:2px}
+  .action-card .micro{margin-bottom:.8rem;display:block}
+  .action-card h3{font-size:1.85rem;margin-bottom:1rem;color:var(--ink)}
+  .action-list{list-style:none}
+  .action-list li{padding:.7rem 0;border-bottom:1px dashed var(--line);display:flex;gap:.9rem;font-size:1.5rem;line-height:1.5;color:var(--ink-soft)}
+  .action-list li:last-child{border-bottom:none}
+  .action-list strong{color:var(--ink);font-weight:700}
+  .action-list .tag{font-family:'JetBrains Mono',monospace;font-size:1.5rem;background:var(--peach);color:var(--paper);padding:.2rem .6rem;border-radius:2px;letter-spacing:.1em;font-weight:600;flex-shrink:0;height:fit-content;margin-top:.1rem}
+  .action-list .tag.warn{background:var(--stamp)}
+  .action-list .tag.note{background:var(--ink-soft)}
+
+  /* Toxidrome table */
+  .tox-table{width:100%;border-collapse:collapse;background:var(--paper);font-size:1.5rem;margin-top:.8rem}
+  .tox-table th{text-align:left;padding:.95rem 1rem;background:var(--ink);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+  .tox-table td{padding:.85rem 1rem;border-bottom:1px solid var(--line);color:var(--ink-soft);vertical-align:top;font-size:1.5rem}
+  .tox-table tr:last-child td{border-bottom:none}
+  .tox-table td:first-child{font-weight:700;color:var(--ink);font-family:'Noto Serif TC',serif}
+  .tox-table .sub{font-size:1.3rem;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;display:block;margin-top:.2rem}
+  .up{color:var(--stamp);font-weight:700}
+  .dn{color:var(--teal);font-weight:700}
+  .eq{color:var(--ink-faint)}
+
+  /* Mnemonic */
+  .pill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:.8rem}
+  .pill{background:var(--paper);border:1px solid var(--line);padding:1.4rem 1.6rem;border-radius:2px}
+  .pill .word{font-family:'Noto Serif TC',serif;font-size:1.85rem;font-weight:700;color:var(--peach);margin-bottom:.7rem;letter-spacing:.05em}
+  .pill .expand{font-size:1.5rem;line-height:1.7;color:var(--ink-soft)}
+  .pill .expand b{color:var(--ink);font-weight:700}
+
+  /* Takeaway */
+  .takeaway-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.5rem}
+  .takeaway{background:var(--paper);border:1px solid var(--line);padding:2.2rem 1.8rem;border-radius:2px;position:relative}
+  .takeaway .num{position:absolute;top:-20px;left:1.8rem;background:var(--stamp);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;padding:.3rem .8rem;letter-spacing:.1em}
+  .takeaway h3{font-family:'Noto Serif TC',serif;font-size:1.85rem;margin-bottom:.9rem;color:var(--ink);margin-top:.5rem;line-height:1.25}
+  .takeaway p{font-size:1.5rem;line-height:1.65}
+
+  /* Roster */
+  .roster{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:1.8rem}
+  .roster-item{background:var(--paper);border:1px solid var(--line);padding:1.3rem 1rem;border-radius:2px;text-align:center}
+  .roster-item .case-num{font-family:'JetBrains Mono',monospace;color:var(--peach);font-size:1.5rem;letter-spacing:.1em;margin-bottom:.6rem;font-weight:600}
+  .roster-item h4{font-family:'Noto Serif TC',serif;font-size:1.55rem;color:var(--ink);font-weight:700;margin-bottom:.4rem;line-height:1.3}
+  .roster-item p{font-size:1.5rem;color:var(--ink-faint);line-height:1.4}
+
+  /* Rules */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:center}
+  .rules-list{list-style:none;margin-top:1rem}
+  .rules-list li{padding:1.2rem 0;border-bottom:1px solid var(--line);display:flex;gap:1.5rem;align-items:flex-start}
+  .rules-list li:last-child{border-bottom:none}
+  .rules-list .n{font-family:'Noto Serif TC',serif;font-size:3rem;color:var(--peach);font-weight:900;line-height:1;flex-shrink:0;min-width:60px}
+  .rules-list h4{font-family:'Noto Serif TC',serif;font-size:1.75rem;margin-bottom:.3rem;color:var(--ink);font-weight:700}
+  .rules-list p{font-size:1.5rem;line-height:1.55;color:var(--ink-soft)}
+
+  /* Antidote */
+  .antidote{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-top:.8rem}
+  .antidote-row{background:var(--paper);border:1px solid var(--line);padding:.95rem 1.2rem;display:flex;align-items:center;gap:1rem;border-radius:2px}
+  .antidote-row .poison{flex:1;font-family:'Noto Serif TC',serif;font-weight:700;color:var(--ink);font-size:1.55rem}
+  .antidote-row .arrow{color:var(--peach);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.6rem}
+  .antidote-row .cure{flex:1;color:var(--ink-soft);font-size:1.5rem;text-align:right;font-weight:500}
+
+  /* Quote slide */
+  .quote-slide{justify-content:center;align-items:center;text-align:center;padding:0 10vw}
+  .quote-slide blockquote{font-family:'Noto Serif TC',serif;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.4;font-weight:500;color:var(--ink);font-style:italic;max-width:34ch}
+  .quote-slide blockquote::before{content:"\201C";color:var(--peach);font-size:1.5em;line-height:0;margin-right:.1em;vertical-align:-0.2em}
+  .quote-slide blockquote::after{content:"\201D";color:var(--peach);font-size:1.5em;line-height:0;margin-left:.05em;vertical-align:-0.4em}
+  .quote-cite{margin-top:2rem;font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
+
+  /* Lesson grid */
+  .lesson-grid{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:flex-start}
+  .lesson-left .micro{margin-bottom:1rem;display:block}
+  .lesson-left h2{margin-bottom:1.2rem}
+  .lesson-body p{margin-bottom:1rem;font-size:1.55rem;line-height:1.65}
+  .lesson-body p.callout{background:var(--paper);border-left:4px solid var(--peach);padding:1.2rem 1.4rem;font-style:italic;color:var(--ink);font-size:1.55rem}
+
+  /* Closing */
+  .closing-slide{align-items:center;text-align:center;justify-content:center}
+  .closing-slide h1{margin-bottom:1.5rem}
+  .closing-slide .lede{max-width:55ch;margin:0 auto 2.5rem}
+  .signoff{margin-top:2.5rem;font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
+  .signoff::before{content:"—  ";color:var(--peach)}
+
+  /* Chrome */
+  #chrome{position:fixed;bottom:0;left:0;right:0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5vw;z-index:50;pointer-events:none;background:linear-gradient(transparent,rgba(245,241,232,.95))}
+  .nav-btn{pointer-events:auto;background:transparent;border:none;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);cursor:pointer;padding:.5rem .8rem;letter-spacing:.08em;transition:color .2s}
+  .nav-btn:hover{color:var(--peach)}
+  #counter{pointer-events:auto;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);letter-spacing:.15em}
+  #counter .current{color:var(--ink);font-weight:600}
+  #progress{position:fixed;top:0;left:0;height:4px;background:var(--peach);transition:width .35s ease;z-index:60;width:0%}
+  #hint{position:fixed;bottom:62px;right:2.5vw;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);letter-spacing:.08em;pointer-events:none;z-index:40;opacity:.55}
+  #hint kbd{background:var(--paper);border:1px solid var(--line);padding:.15rem .45rem;border-radius:3px;margin:0 .15rem;font-family:inherit;font-size:1.4rem;color:var(--ink)}
+  #notes{position:fixed;bottom:65px;left:2.5vw;right:2.5vw;background:rgba(28,26,23,.96);color:var(--cream);border-radius:6px;padding:1.4rem 1.8rem;font-size:1.5rem;line-height:1.6;max-height:35vh;overflow-y:auto;display:none;z-index:55}
+  #notes.show{display:block}
+  #notes .label{font-family:'JetBrains Mono',monospace;font-size:1.4rem;letter-spacing:.2em;color:var(--peach);margin-bottom:.6rem;text-transform:uppercase}
+  #notes b{color:var(--peach-soft);font-weight:700}
+
+  @media (max-width: 1280px){ html{font-size:16px} }
+  @media (max-width: 900px){
+    html{font-size:15px}
+    .case-with-image,.verdict,.lesson-grid,.rules{grid-template-columns:1fr;gap:1.5rem}
+    .clue-grid,.options,.pill-grid,.antidote{grid-template-columns:1fr}
+    .takeaway-grid,.roster{grid-template-columns:repeat(2,1fr)}
+    .slide{padding:5vh 5vw 9vh}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="deck">
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- 01 ─ TITLE                                            -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="slide title-slide" data-notes="開場致詞：歡迎大家來到毒物偵探社。今晚 60 分鐘，破 5 個真實案件。每個案件對應一種臨床必認的中毒。手機可拍照、講錯沒關係、大聲說。">
+  <span class="version-tag">V1 ／ CASE-DRIVEN</span>
+  <span class="slide-tag">01 ／ 開場</span>
+  <div class="title-eyebrow">— 一小時護理進階課程 ／ EMCrit IBCC 改編</div>
+  <h1>毒物<br><span class="accent">偵探社</span></h1>
+  <p class="title-sub">新進急診與加護病房護理師<br>的中毒病人破案訓練。<br>五個案件，五個線索，五個讓人冒冷汗的真相。</p>
+  <div class="stamp">機密 ／ 限員工</div>
+  <div class="title-meta">
+    <div class="left">講師：[您的名字]　·　60 MIN　·　TPE</div>
+    <div class="right">DOSSIER №20260522 ／ V1</div>
+  </div>
+</section>
+
+<!-- 02 ─ ROSTER -->
+<section class="slide" data-notes="今晚要破的五個案件。每個對應一種主要 toxidrome。先讓大家對整體有 picture。可以問：『哪個最常見？哪個最危險？』">
+  <span class="slide-tag">02 ／ 案件名冊</span>
+  <h2>今晚要破的<em style="color:var(--peach);font-style:italic">五</em>個案件</h2>
+  <p class="lede" style="margin-top:1rem;max-width:60ch;font-size:1.65rem">每個案件背後都是一種你在班上會遇到的毒物。先別問答案——當個偵探，先看線索。</p>
+  <div class="roster">
+    <div class="roster-item"><div class="case-num">案件 #01</div><h4>公園裡的<br>針孔睡神</h4><p>呼吸越來越慢的那個人</p></div>
+    <div class="roster-item"><div class="case-num">案件 #02</div><h4>夜店送來的<br>鋼鐵人</h4><p>什麼都過高的躁動者</p></div>
+    <div class="roster-item"><div class="case-num">案件 #03</div><h4>燒乾的<br>瘋帽阿嬤</h4><p>QRS 變寬的隱形殺手</p></div>
+    <div class="roster-item"><div class="case-num">案件 #04</div><h4>全身漏水的<br>下田阿伯</h4><p>救人前要先救自己</p></div>
+    <div class="roster-item"><div class="case-num">案件 #05</div><h4>失戀少女的<br>三杯雞</h4><p>看不見的真兇 ／ 大魔王</p></div>
+  </div>
+</section>
+
+<!-- 03 ─ RULES -->
+<section class="slide" data-notes="講清楚遊戲規則。重點是讓大家敢猜——不要怕錯。每個案件結束會給 take-home point。">
+  <span class="slide-tag">03 ／ 守則</span>
+  <div class="rules">
+    <div>
+      <span class="micro">Detective's Code</span>
+      <h2>偵探守則</h2>
+      <p class="lede" style="margin-top:.8rem;font-size:1.7rem">不是醫學考試，是<strong style="color:var(--peach)">臨床直覺</strong>的訓練。</p>
+    </div>
+    <ul class="rules-list">
+      <li><span class="n">01</span><div><h4>線索分批揭曉</h4><p>每個案件我會慢慢給你 VS、PE、ECG。等線索齊了再下判斷，跟你在急診一樣。</p></div></li>
+      <li><span class="n">02</span><div><h4>大聲講錯沒關係</h4><p>講錯比沉默有價值。在真實病人身上你只能猜一次，今天你可以猜五次。</p></div></li>
+      <li><span class="n">03</span><div><h4>結案後記三件事</h4><p>每個案件結束會有「護理重點」——抄這三件事就值回票價。</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CASE 1 ─ OPIOID                                       -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 04 ─ CASE 1 OPEN -->
+<section class="slide" data-notes="119 剛丟一個 patient 進來，路人在公園發現。你接班 30 秒。先看什麼？讓學員想像站在 trauma bay。">
+  <span class="slide-tag">04 ／ 案件 №01</span>
+  <div class="case-with-image">
+    <figure class="case-figure">
+      <img src="img/01-park-coma.png" alt="公園昏迷男" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">公園昏迷男</div><div class="fb-sub">AI 圖像 ／ 待生成</div></div>
+      <figcaption>CASE №01 ／ EVIDENCE PHOTO</figcaption>
+    </figure>
+    <div class="case-file">
+      <div class="case-no">CASE №01 ／ 出勤紀錄</div>
+      <h2 class="case-title">公園裡的<br>針孔睡神</h2>
+      <div class="case-meta">
+        <div>性別 ／ 年齡<br><strong>男 ／ 23 歲</strong></div>
+        <div>到院方式<br><strong>119 急救車</strong></div>
+        <div>地點<br><strong>市民公園長椅</strong></div>
+        <div>主訴<br><strong>路人發現叫不醒</strong></div>
+      </div>
+      <p class="case-narrative">救護員說：他<em>不會動</em>、呼吸<em>很慢很慢</em>、叫不太醒。沒有家屬、沒有錢包、沒有手機。</p>
+      <p class="case-narrative hint">▸ 你接過病人，第一件事該看什麼？</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 ─ CASE 1 CLUE -->
+<section class="slide" data-notes="按一下出第一張線索（VS），再按一下出第二張（PE）。VS：RR=6，呼吸 drive 出問題。PE：瞳孔針尖 + 針孔 = opioid signature。">
+  <span class="slide-tag">05 ／ 線索揭曉</span>
+  <span class="micro" style="display:block;margin-bottom:1rem">CASE №01 ／ EVIDENCE</span>
+  <h2 style="margin-bottom:1.3rem">線索揭曉</h2>
+  <p class="lede" style="margin-bottom:1.2rem;color:var(--ink-faint);font-size:1.55rem">按 <kbd style="background:var(--paper);border:1px solid var(--line);padding:.1rem .45rem;border-radius:3px;font-family:JetBrains Mono;font-size:1.4rem">空白鍵</kbd> 或點擊揭曉下一條線索</p>
+  <div class="clue-grid">
+    <div class="clue" data-step="1">
+      <div class="clue-label">線索 A ／ 生命徵象</div>
+      <h4>呼吸機器在尖叫</h4>
+      <ul>
+        <li>BP <strong>100 / 60</strong></li>
+        <li>HR <strong>58</strong>　&nbsp;RR <strong>6</strong></li>
+        <li>SpO₂ <strong>82%</strong>　&nbsp;T <strong>36.1°C</strong></li>
+        <li>GCS <strong>E1V1M4</strong></li>
+      </ul>
+    </div>
+    <div class="clue" data-step="2">
+      <div class="clue-label">線索 B ／ 身體檢查</div>
+      <h4>三個關鍵畫面</h4>
+      <ul>
+        <li>瞳孔 <strong>針尖（pinpoint）</strong></li>
+        <li>皮膚 <strong>冰冷濕黏</strong></li>
+        <li>前臂內側 <strong>多處新舊針孔</strong></li>
+        <li>無外傷、無嘔吐、無酒味</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ─ CASE 1 DEDUCE -->
+<section class="slide" data-notes="給 30 秒討論。反問：『為什麼不是 BZD？』 BZD 不會壓 RR 這麼狠、瞳孔不會針尖。">
+  <span class="slide-tag">06 ／ 推理時間</span>
+  <div class="deduce">
+    <span class="micro">CASE №01 ／ DEDUCTION</span>
+    <h2>線索都齊了。<br>你的<em>主嫌</em>是誰？</h2>
+    <div class="options">
+      <div class="option"><span class="letter">A</span>苯二氮平類（BZD）過量</div>
+      <div class="option"><span class="letter">B</span>鴉片類（Opioid）過量</div>
+      <div class="option"><span class="letter">C</span>低血糖昏迷</div>
+      <div class="option"><span class="letter">D</span>蜘蛛膜下腔出血</div>
+    </div>
+    <p class="deduce-hint">提示：三個 P — Pinpoint pupils ／ Pin marks ／ Pressed RR</p>
+  </div>
+</section>
+
+<!-- 07 ─ CASE 1 VERDICT -->
+<section class="slide" data-notes="揭曉。Naloxone titrate (0.04-0.4mg) 不要 2mg 推。半衰期短，長效鴉片要 redose。Fentanyl 可能需 10mg+。">
+  <span class="slide-tag">07 ／ 結案 №01</span>
+  <div class="verdict">
+    <div>
+      <span class="verdict-stamp">已結案</span>
+      <h2><span class="toxin">真兇</span>鴉片過量<br>Opioid Overdose</h2>
+      <p class="verdict-body">三 P 全中：<strong>瞳孔針尖、針孔、呼吸壓到 6</strong>。<br>教科書級的 opioid toxidrome。</p>
+      <blockquote class="verdict-quip">「被睡神綁架的針孔人，<br>鑰匙叫 Naloxone。」</blockquote>
+    </div>
+    <div class="action-card">
+      <span class="micro">護理師三件事</span>
+      <h3>結案後該怎麼做</h3>
+      <ul class="action-list">
+        <li><span class="tag">藥</span>Naloxone <strong>0.04–0.4 mg IV/IM</strong>，<br>titrate 到 RR &gt;10 就好。<br>別一次推 2 mg，會嘔吐 + 戒斷躁動。</li>
+        <li><span class="tag warn">小心</span>半衰期短（30–90 分鐘），長效鴉片<strong>復發呼吸抑制</strong>要 redose 或持續滴注。</li>
+        <li><span class="tag note">記</span>Fentanyl 累積劑量可能<strong>需 10 mg 以上</strong>。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- LESSON 1 ─ 病史不可靠 (金句頁)                        -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="slide quote-slide" data-notes="過渡片，強烈句子讓大家記住。Tox 病史不可靠。問家屬、看現場、預設多重藥物。">
+  <span class="slide-tag">08 ／ 第一招</span>
+  <blockquote>中毒病人的病史，跟前任的承諾一樣<br>—— <span style="color:var(--peach)">不能信</span>。</blockquote>
+  <div class="quote-cite">— 毒物科醫師 不願具名 ／ 改編自 EMCrit IBCC</div>
+  <div style="margin-top:3rem;max-width:600px;text-align:center;font-size:1.55rem;line-height:1.7;color:var(--ink-soft)">
+    所以你要做的三件事：<br>
+    <strong style="color:var(--ink)">①</strong> 問家屬，不要只問病人　<strong style="color:var(--ink)">②</strong> 派人回現場拍藥瓶　<strong style="color:var(--ink)">③</strong> 預設「他吃的不只一種」
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CASE 2 ─ SYMPATHOMIMETIC                              -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 09 ─ CASE 2 OPEN -->
+<section class="slide" data-notes="節奏快、聲音大。Medical emergency 不是精神病。每分鐘都在燒壞器官。">
+  <span class="slide-tag">09 ／ 案件 №02</span>
+  <div class="case-with-image">
+    <figure class="case-figure">
+      <img src="img/02-nightclub-iron.png" alt="夜店鋼鐵人" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">夜店鋼鐵人</div><div class="fb-sub">AI 圖像 ／ 待生成</div></div>
+      <figcaption>CASE №02 ／ EVIDENCE PHOTO</figcaption>
+    </figure>
+    <div class="case-file">
+      <div class="case-no">CASE №02 ／ 出勤紀錄</div>
+      <h2 class="case-title">夜店送來<br>的鋼鐵人</h2>
+      <div class="case-meta">
+        <div>性別 ／ 年齡<br><strong>男 ／ 25 歲</strong></div>
+        <div>到院方式<br><strong>朋友扛來</strong></div>
+        <div>背景<br><strong>夜店狂歡 6 小時</strong></div>
+        <div>主訴<br><strong>大吼大叫要打人</strong></div>
+      </div>
+      <p class="case-narrative">朋友說他吞了「一顆白色的」，吞完越來越 high。現在<em>講不通</em>、<em>拳頭緊握</em>、<em>滿頭大汗</em>。安全人員壓著才能靠近。</p>
+      <p class="case-narrative hint">▸ 護理師心裡在想：先打止痛還是先測血壓？</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 ─ CASE 2 CLUE -->
+<section class="slide" data-notes="所有 vitals 過高。摸皮膚——濕→交感、乾→抗膽鹼。">
+  <span class="slide-tag">10 ／ 線索揭曉</span>
+  <span class="micro" style="display:block;margin-bottom:1rem">CASE №02 ／ EVIDENCE</span>
+  <h2 style="margin-bottom:1.3rem">線索揭曉</h2>
+  <p class="lede" style="margin-bottom:1.2rem;color:var(--ink-faint);font-size:1.55rem">這次線索有個共通點 — <strong style="color:var(--peach)">通通往上</strong>。</p>
+  <div class="clue-grid">
+    <div class="clue" data-step="1">
+      <div class="clue-label">線索 A ／ 生命徵象</div>
+      <h4>儀器只剩警報聲</h4>
+      <ul>
+        <li>BP <strong>200 / 110 ↑↑</strong></li>
+        <li>HR <strong>145 ↑↑</strong>　&nbsp;RR <strong>28 ↑</strong></li>
+        <li>SpO₂ <strong>99%</strong>　&nbsp;T <strong>39.5°C ↑↑</strong></li>
+        <li>意識清醒但<strong>嚴重躁動</strong></li>
+      </ul>
+    </div>
+    <div class="clue" data-step="2">
+      <div class="clue-label">線索 B ／ 身體檢查</div>
+      <h4>四個關鍵畫面</h4>
+      <ul>
+        <li>瞳孔 <strong>散大（mydriasis）</strong></li>
+        <li>皮膚 <strong>潮紅 + 多汗</strong></li>
+        <li>顫抖、肌肉緊繃、牙關緊咬</li>
+        <li>口乾？<strong>不</strong>，反而黏膜濕</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 11 ─ CASE 2 DEDUCE -->
+<section class="slide" data-notes="鑑別重點：sympathomimetic vs anticholinergic 的差別在『汗』。">
+  <span class="slide-tag">11 ／ 推理時間</span>
+  <div class="deduce">
+    <span class="micro">CASE №02 ／ DEDUCTION</span>
+    <h2>同樣是<em>瘋狂 + 散瞳</em>，<br>你怎麼分辨？</h2>
+    <div class="options">
+      <div class="option"><span class="letter">A</span>抗膽鹼中毒（如 TCA）</div>
+      <div class="option"><span class="letter">B</span>交感興奮中毒（古柯鹼／安非他命）</div>
+      <div class="option"><span class="letter">C</span>血清素症候群</div>
+      <div class="option"><span class="letter">D</span>惡性高熱（NMS）</div>
+    </div>
+    <p class="deduce-hint">關鍵分辨：摸皮膚——<strong>濕→交感</strong>　／　<strong>乾→抗膽鹼</strong></p>
+  </div>
+</section>
+
+<!-- 12 ─ CASE 2 VERDICT -->
+<section class="slide" data-notes="BZD 首選。禁單獨用 β-blocker。物理降溫 >> 退燒藥。先鎮靜再約束。">
+  <span class="slide-tag">12 ／ 結案 №02</span>
+  <div class="verdict">
+    <div>
+      <span class="verdict-stamp">已結案</span>
+      <h2><span class="toxin">真兇</span>交感興奮中毒<br>Sympathomimetic</h2>
+      <p class="verdict-body">古柯鹼、安非他命、MDMA、浴鹽都有可能。<br>皮膚<strong>潮濕</strong>是跟抗膽鹼最大區別。</p>
+      <blockquote class="verdict-quip">「喝了二十杯星巴克<br>加五罐紅牛的鋼鐵人。」</blockquote>
+    </div>
+    <div class="action-card">
+      <span class="micro">護理師三件事</span>
+      <h3>結案後該怎麼做</h3>
+      <ul class="action-list">
+        <li><span class="tag">藥</span>首選 <strong>BZD</strong>（Diazepam 5–10 mg IV，q5min repeat）。<br>鎮靜了體溫、血壓會自己降。</li>
+        <li><span class="tag warn">禁忌</span>單獨用 β-blocker（unopposed alpha、心肌缺血）。<br>退燒藥對中毒性高燒<strong>沒用</strong>。</li>
+        <li><span class="tag note">記</span>體溫 &gt;40°C 是急症，<br><strong>物理降溫</strong>立刻啟動。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- LESSON 2 ─ Toxidromes 對照表 + 口訣                  -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 13 ─ Toxidrome 表 -->
+<section class="slide" data-notes="核心知識片。讓學員拍照。建立『看 vitals 就能猜』反射。">
+  <span class="slide-tag">13 ／ 第二招</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Toxidrome cheat sheet</span>
+  <h2 style="margin-bottom:1rem">五大毒症候群 — 一表掌握</h2>
+  <table class="tox-table">
+    <thead>
+      <tr><th>毒症候群</th><th>HR</th><th>BP</th><th>RR</th><th>T</th><th>瞳孔</th><th>皮膚</th><th>意識</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>交感興奮<span class="sub">Sympathomimetic</span></td><td class="up">↑↑</td><td class="up">↑↑</td><td class="up">↑</td><td class="up">↑↑</td><td>散大</td><td>潮紅+<span class="up">汗</span></td><td>躁動</td></tr>
+      <tr><td>抗膽鹼<span class="sub">Anticholinergic</span></td><td class="up">↑</td><td class="up">↑</td><td class="eq">→</td><td class="up">↑</td><td>散大</td><td>乾紅熱</td><td>譫妄</td></tr>
+      <tr><td>膽鹼性<span class="sub">Cholinergic</span></td><td class="dn">↓</td><td class="dn">↓</td><td class="up">↑痰</td><td class="eq">→</td><td>針尖</td><td><span class="up">大量分泌</span></td><td>無力／抽搐</td></tr>
+      <tr><td>鴉片<span class="sub">Opioid</span></td><td class="dn">↓</td><td class="dn">↓</td><td class="dn">↓↓</td><td class="dn">↓</td><td>針尖</td><td>濕冷</td><td>昏睡</td></tr>
+      <tr><td>鎮靜安眠<span class="sub">Sedative-hypnotic</span></td><td class="dn">↓</td><td class="dn">↓</td><td class="dn">↓</td><td class="eq">→</td><td>多正常</td><td>正常</td><td>昏睡</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:1rem;font-size:1.5rem;color:var(--ink-faint);font-style:italic">速記：交感「樣樣高 + 出汗」　／　抗膽鹼「樣樣高 + 乾燥」　／　膽鹼「全身漏水」　／　鴉片「樣樣低 + 針尖」　／　鎮靜「就是睡到不行」</p>
+</section>
+
+<!-- 14 ─ Mnemonics with DUMBELS image -->
+<section class="slide" data-notes="兩個重要口訣。DUMBELS 圖印起來貼護理站。瘋帽客六句訣可以全班一起唸。">
+  <span class="slide-tag">14 ／ 護理師速記</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Mnemonics</span>
+  <h2 style="margin-bottom:1.2rem">兩個救命口訣</h2>
+  <div class="clue-with-image">
+    <div class="pill-grid" style="grid-template-columns:1fr">
+      <div class="pill">
+        <div class="word">DUMBELS</div>
+        <div class="expand">
+          <b>膽鹼性中毒</b>（有機磷、神經毒劑）<br>
+          <b>D</b>iarrhea 拉肚子　<b>U</b>rination 尿失禁<br>
+          <b>M</b>iosis 瞳孔針尖　<b>B</b>radycardia 心跳慢<br>
+          <b>E</b>mesis 嘔吐　<b>L</b>acrimation 流淚<br>
+          <b>S</b>alivation 流口水
+        </div>
+      </div>
+      <div class="pill">
+        <div class="word">瘋帽客六句訣</div>
+        <div class="expand">
+          <b>抗膽鹼中毒</b>（TCA、抗組織胺、莨菪鹼）<br>
+          熱得像<b>兔子</b>（高燒）　乾得像<b>枯骨</b>（不出汗）<br>
+          紅得像<b>甜菜</b>（皮膚潮紅）　瘋得像<b>帽匠</b>（譫妄）<br>
+          看不到、尿不出（散瞳 + 尿滯留）
+        </div>
+      </div>
+    </div>
+    <figure class="case-figure" style="aspect-ratio:3/4">
+      <img src="img/05-dumbels-mnemonic.png" alt="DUMBELS 口訣圖解" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">DUMBELS 圖解</div><div class="fb-sub">AI 圖像 ／ 待生成</div></div>
+      <figcaption>口訣海報 ／ 護理站張貼用</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CASE 3 ─ ANTICHOLINERGIC / TCA                        -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 15 ─ CASE 3 OPEN -->
+<section class="slide" data-notes="TCA 在台灣早期常開。中老年自殺常見。家屬說『吃了一些藥』一定要查藥袋。">
+  <span class="slide-tag">15 ／ 案件 №03</span>
+  <div class="case-with-image">
+    <figure class="case-figure">
+      <img src="img/03-mad-hatter-grandma.png" alt="瘋帽阿嬤" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">瘋帽阿嬤</div><div class="fb-sub">AI 圖像 ／ 待生成</div></div>
+      <figcaption>CASE №03 ／ EVIDENCE PHOTO</figcaption>
+    </figure>
+    <div class="case-file">
+      <div class="case-no">CASE №03 ／ 出勤紀錄</div>
+      <h2 class="case-title">燒乾的<br>瘋帽阿嬤</h2>
+      <div class="case-meta">
+        <div>性別 ／ 年齡<br><strong>女 ／ 70 歲</strong></div>
+        <div>到院方式<br><strong>家屬送來</strong></div>
+        <div>背景<br><strong>憂鬱症 8 年</strong></div>
+        <div>主訴<br><strong>空藥罐 + 意識變化</strong></div>
+      </div>
+      <p class="case-narrative">媳婦發現婆婆<em>講話顛三倒四</em>。床頭一個<em>空的褐色藥罐</em>，標籤「<em>Amitriptyline 25mg</em>」，原本應該還有 50 顆。</p>
+      <p class="case-narrative hint">▸ 警鈴大響：TCA。但有多嚴重？看心電圖。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 16 ─ CASE 3 CLUE -->
+<section class="slide" data-notes="QRS >100ms 警示。>160ms 預測 VT。aVR 終端 R 波是 sodium channel block signature。">
+  <span class="slide-tag">16 ／ 線索揭曉</span>
+  <span class="micro" style="display:block;margin-bottom:1rem">CASE №03 ／ EVIDENCE</span>
+  <h2 style="margin-bottom:1.3rem">線索揭曉 — <em style="color:var(--peach);font-style:italic">ECG 是關鍵</em></h2>
+  <div class="clue-grid">
+    <div class="clue" data-step="1">
+      <div class="clue-label">線索 A ／ VS + PE</div>
+      <h4>表面像感染</h4>
+      <ul>
+        <li>BP <strong>85 / 50</strong>　&nbsp;HR <strong>130</strong></li>
+        <li>T <strong>38.5°C</strong>　&nbsp;RR 18</li>
+        <li>瞳孔<strong>散大</strong>、皮膚<strong>乾紅熱</strong></li>
+        <li>譫妄抓空、<strong>尿滯留</strong>、無汗</li>
+      </ul>
+    </div>
+    <div class="clue" data-step="2">
+      <div class="clue-label">線索 B ／ 心電圖</div>
+      <h4>QRS 0.14 秒（變寬）</h4>
+      <ul>
+        <li>QRS &gt; <strong>100 ms</strong> → 警示</li>
+        <li>QRS &gt; <strong>160 ms</strong> → VT 危險</li>
+        <li>aVR <strong>終端 R 波 &gt; 3 mm</strong></li>
+        <li>QTc 也延長</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:1.2rem;font-size:1.5rem;color:var(--ink-faint);text-align:center;font-style:italic">▸ 抗膽鹼 toxidrome ＋ 寬 QRS ＝ <strong>鈉通道阻斷 / Sodium Channel Blockade</strong></p>
+</section>
+
+<!-- 17 ─ CASE 3 DEDUCE -->
+<section class="slide" data-notes="QRS 寬 = Na channel block = NaHCO3 鹼化把藥從 channel 擠出來。">
+  <span class="slide-tag">17 ／ 推理時間</span>
+  <div class="deduce">
+    <span class="micro">CASE №03 ／ DEDUCTION</span>
+    <h2>抗膽鹼症狀 ＋ <em>寬 QRS</em>，<br>該給哪個解藥？</h2>
+    <div class="options">
+      <div class="option"><span class="letter">A</span>Atropine 0.5 mg IV</div>
+      <div class="option"><span class="letter">B</span>Naloxone 0.4 mg IV</div>
+      <div class="option"><span class="letter">C</span>Sodium Bicarbonate 1–2 mEq/kg IV</div>
+      <div class="option"><span class="letter">D</span>Physostigmine 0.5 mg IV</div>
+    </div>
+    <p class="deduce-hint">關鍵：QRS 變寬 = 鈉通道卡住 = 用<strong>鹼化血液 + 鈉</strong>把藥擠出來</p>
+  </div>
+</section>
+
+<!-- 18 ─ CASE 3 VERDICT -->
+<section class="slide" data-notes="NaHCO3 endpoint：QRS narrow + pH 7.45-7.55。Physostigmine 在 TCA 禁忌。抽搐用 BZD 禁 Phenytoin。">
+  <span class="slide-tag">18 ／ 結案 №03</span>
+  <div class="verdict">
+    <div>
+      <span class="verdict-stamp">已結案</span>
+      <h2><span class="toxin">真兇</span>三環抗鬱劑<br>TCA Overdose</h2>
+      <p class="verdict-body">抗膽鹼 toxidrome ＋ <strong>鈉通道阻斷</strong>。<br>死亡來自抽搐、難治性低血壓、VT。</p>
+      <blockquote class="verdict-quip">「乾得像沙漠的瘋帽客，<br>QRS 是她的求救信號。」</blockquote>
+    </div>
+    <div class="action-card">
+      <span class="micro">護理師三件事</span>
+      <h3>結案後該怎麼做</h3>
+      <ul class="action-list">
+        <li><span class="tag">藥</span><strong>Sodium Bicarbonate 1–2 mEq/kg IV bolus</strong>，<br>之後持續輸注。Endpoint：QRS 變窄 + pH 7.45–7.55。</li>
+        <li><span class="tag warn">禁忌</span>Physostigmine、IA/IC 抗心律不整藥（更慘）。<br>禁低張溶液。</li>
+        <li><span class="tag note">記</span>抽搐用 <strong>BZD</strong>，不用 Phenytoin（也是鈉通道阻斷）。<br>準備 ICU + 插管。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- LESSON 3 ─ ECG 三大暗號                              -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="slide" data-notes="護理師看到三個 pattern 立刻找醫師。早 10 秒可能救命。">
+  <span class="slide-tag">19 ／ 第三招</span>
+  <div class="lesson-grid">
+    <div class="lesson-left">
+      <span class="micro">Lesson 03</span>
+      <h2>ECG 三大暗號</h2>
+      <p class="lede" style="margin-bottom:1.5rem;font-size:1.65rem">護理師不用判讀 ECG，但要認得這三個 pattern——看到就<strong style="color:var(--peach)">立刻叫醫師</strong>。</p>
+      <p class="callout">「QRS 寬，bicarb 拿。<br>QT 長，鎂硫養。<br>慢心律 + AVB，叫醫師看是 BB 還是 dig。」</p>
+    </div>
+    <div>
+      <table class="tox-table">
+        <thead><tr><th>ECG Pattern</th><th>常見毒物</th><th>處置</th></tr></thead>
+        <tbody>
+          <tr><td>QRS &gt; 100 ms<span class="sub">（變寬）</span></td><td>TCA、Cocaine、Diphenhydramine、Bupropion</td><td><strong>NaHCO₃</strong></td></tr>
+          <tr><td>QTc &gt; 500 ms<span class="sub">（變長）</span></td><td>抗精神病、Methadone、Ondansetron</td><td><strong>Mg, K 補足</strong><br>停藥、注意 Torsades</td></tr>
+          <tr><td>慢心律 + AVB</td><td>Digoxin、β-blocker、CCB</td><td>分別處置：Dig-Fab／<br>Glucagon／高劑量胰島素</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CASE 4 ─ CHOLINERGIC / Organophosphate                -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 20 ─ CASE 4 OPEN -->
+<section class="slide" data-notes="台灣特別要會。救人前先救自己。曾有 ED 護理師處理有機磷病人後也出現 cholinergic 症狀。">
+  <span class="slide-tag">20 ／ 案件 №04</span>
+  <div class="case-with-image">
+    <figure class="case-figure">
+      <img src="img/04-leaking-farmer.png" alt="漏水阿伯" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">漏水阿伯</div><div class="fb-sub">AI 圖像 ／ 待生成</div></div>
+      <figcaption>CASE №04 ／ EVIDENCE PHOTO</figcaption>
+    </figure>
+    <div class="case-file">
+      <div class="case-no">CASE №04 ／ 出勤紀錄</div>
+      <h2 class="case-title">全身漏水<br>的下田阿伯</h2>
+      <div class="case-meta">
+        <div>性別 ／ 年齡<br><strong>男 ／ 50 歲</strong></div>
+        <div>到院方式<br><strong>太太開車送來</strong></div>
+        <div>背景<br><strong>果農，今早噴農藥</strong></div>
+        <div>主訴<br><strong>頭暈、流口水、拉肚子</strong></div>
+      </div>
+      <p class="case-narrative">衣服還沒換，身上有<em>濃濃的農藥味</em>。一進來<em>口水滴到地上</em>、褲子<em>濕一塊</em>（不是水）。太太說<em>今早面罩破洞</em>。</p>
+      <p class="case-narrative hint">▸ 想處置之前，先問自己：你穿了什麼？</p>
+    </div>
+  </div>
+</section>
+
+<!-- 21 ─ CASE 4 CLUE -->
+<section class="slide" data-notes="DUMBELS 全中。肺水腫不是心衰，是 bronchorrhea。Atropine endpoint 是肺乾不是 HR。">
+  <span class="slide-tag">21 ／ 線索揭曉</span>
+  <span class="micro" style="display:block;margin-bottom:1rem">CASE №04 ／ EVIDENCE</span>
+  <h2 style="margin-bottom:1.3rem">線索揭曉 — <em style="color:var(--peach);font-style:italic">DUMBELS 全中</em></h2>
+  <div class="clue-grid">
+    <div class="clue" data-step="1">
+      <div class="clue-label">線索 A ／ 生命徵象</div>
+      <h4>慢、慢、慢</h4>
+      <ul>
+        <li>BP <strong>90 / 60</strong>　&nbsp;HR <strong>50</strong></li>
+        <li>RR <strong>28</strong>（聽診全肺 <strong>濕囉音</strong>）</li>
+        <li>SpO₂ <strong>88%</strong>　&nbsp;T 36.5°C</li>
+        <li>瞳孔 <strong>針尖</strong></li>
+      </ul>
+    </div>
+    <div class="clue" data-step="2">
+      <div class="clue-label">線索 B ／ DUMBELS</div>
+      <h4>全身在漏水</h4>
+      <ul>
+        <li><strong>D</strong>iarrhea　<strong>U</strong>rination　<strong>M</strong>iosis</li>
+        <li><strong>B</strong>radycardia ／ <strong>B</strong>ronchorrhea</li>
+        <li><strong>E</strong>mesis　<strong>L</strong>acrimation　<strong>S</strong>alivation</li>
+        <li>＋ 肌肉束顫（fasciculation）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 22 ─ CASE 4 DEDUCE -->
+<section class="slide" data-notes="答案明顯但重點是『救人前先去污染』。直接給 Atropine 你會接觸有機磷自己中毒。">
+  <span class="slide-tag">22 ／ 推理時間</span>
+  <div class="deduce">
+    <span class="micro">CASE №04 ／ DEDUCTION</span>
+    <h2>農夫＋針尖瞳孔＋全身漏水。<br>你的<em>第一步</em>該做什麼？</h2>
+    <div class="options">
+      <div class="option"><span class="letter">A</span>立刻給 Atropine 1 mg IV</div>
+      <div class="option"><span class="letter">B</span>立刻氣管插管</div>
+      <div class="option"><span class="letter">C</span>戴 PPE、脫除衣物、皮膚去污染</div>
+      <div class="option"><span class="letter">D</span>立刻洗胃</div>
+    </div>
+    <p class="deduce-hint">提示：你不去污染，下一個病人就是你自己。</p>
+  </div>
+</section>
+
+<!-- 23 ─ CASE 4 VERDICT -->
+<section class="slide" data-notes="Atropine 大劑量（50-100mg+）。Endpoint 肺乾不是 HR。2-PAM 早給效果好。第一步永遠是 PPE。">
+  <span class="slide-tag">23 ／ 結案 №04</span>
+  <div class="verdict">
+    <div>
+      <span class="verdict-stamp">已結案</span>
+      <h2><span class="toxin">真兇</span>有機磷農藥<br>Organophosphate</h2>
+      <p class="verdict-body">乙醯膽鹼酯酶被抑制 → 全身副交感大爆發。<br>死因：呼吸衰竭（痰多 + 肌肉麻痺）。</p>
+      <blockquote class="verdict-quip">「全身漏水的水龍頭，<br>救人前先關自己這道。」</blockquote>
+    </div>
+    <div class="action-card">
+      <span class="micro">護理師三件事</span>
+      <h3>結案後該怎麼做</h3>
+      <ul class="action-list">
+        <li><span class="tag warn">先</span><strong>戴 PPE + 脫除衣物 + 皮膚沖洗</strong>。<br>不去污染你會變下一個病人。</li>
+        <li><span class="tag">藥</span><strong>Atropine 1–3 mg IV</strong>，每 5 分鐘 double 直到<strong>肺乾</strong>。<br>累積可能 50–100 mg+。Endpoint 不是 HR。</li>
+        <li><span class="tag">藥</span><strong>Pralidoxime（2-PAM）</strong>：重活化酯酶。早給效果好。<br>抽搐用 BZD。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- LESSON 4 ─ 解毒劑 + 淨化                              -->
+<!-- ════════════════════════════════════════════════════ -->
+<section class="slide" data-notes="活性碳口訣『一小時、清醒、會吞、不腐蝕』。Flumazenil 多重藥物中毒禁用。床邊隨時要有 Naloxone、Glucose、NaHCO3。">
+  <span class="slide-tag">24 ／ 第四招</span>
+  <div class="lesson-grid">
+    <div class="lesson-left">
+      <span class="micro">Lesson 04</span>
+      <h2>解毒劑速查</h2>
+      <p class="lede" style="margin-bottom:1.5rem;font-size:1.65rem">看到毒物 → 直接想到解藥。前四個是<strong style="color:var(--peach)">床邊隨時要有</strong>的。</p>
+      <p class="callout">活性碳口訣：<br>「<strong>一小時、清醒、會吞、不腐蝕</strong>」<br>四個 yes 才給。<br>金屬、鋰、酒精、強酸鹼<strong>無效</strong>。</p>
+    </div>
+    <div>
+      <div class="antidote">
+        <div class="antidote-row"><span class="poison">Opioid</span><span class="arrow">→</span><span class="cure">Naloxone</span></div>
+        <div class="antidote-row"><span class="poison">低血糖</span><span class="arrow">→</span><span class="cure">D50W ／ 升糖素</span></div>
+        <div class="antidote-row"><span class="poison">TCA<br><span style="font-size:1.4rem;color:var(--ink-faint);font-weight:400">（QRS 寬）</span></span><span class="arrow">→</span><span class="cure">Sodium Bicarbonate</span></div>
+        <div class="antidote-row"><span class="poison">有機磷</span><span class="arrow">→</span><span class="cure">Atropine + 2-PAM</span></div>
+        <div class="antidote-row"><span class="poison">Acetaminophen</span><span class="arrow">→</span><span class="cure">N-Acetylcysteine</span></div>
+        <div class="antidote-row"><span class="poison">β-blocker / CCB</span><span class="arrow">→</span><span class="cure">高劑量胰島素 + Ca</span></div>
+        <div class="antidote-row"><span class="poison">Digoxin</span><span class="arrow">→</span><span class="cure">Digoxin Fab</span></div>
+        <div class="antidote-row" style="border:2px solid var(--stamp)"><span class="poison" style="color:var(--stamp)">BZD<br><span style="font-size:1.4rem;font-weight:400">⚠ 多數禁用</span></span><span class="arrow" style="color:var(--stamp)">⊘</span><span class="cure">Flumazenil 多數禁用</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CASE 5 ─ MIXED OD ／ BOSS                            -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 25 ─ CASE 5 OPEN -->
+<section class="slide" data-notes="壓軸案件。看起來只是嗜睡但藏一個 24-72 小時才發作的肝衰殺手。混合中毒常見。">
+  <span class="slide-tag">25 ／ 案件 №05 · 大魔王</span>
+  <div class="case-with-image">
+    <figure class="case-figure">
+      <img src="img/06-heartbroken-girl.png" alt="失戀少女混合中毒" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">失戀少女混合中毒</div><div class="fb-sub">AI 圖像 ／ 待生成</div></div>
+      <figcaption>CASE №05 ／ EVIDENCE PHOTO ／ FINAL</figcaption>
+    </figure>
+    <div class="case-file">
+      <div class="case-no">CASE №05 ／ FINAL CASE</div>
+      <h2 class="case-title">失戀少女<br>的三杯雞</h2>
+      <div class="case-meta">
+        <div>性別 ／ 年齡<br><strong>女 ／ 18 歲</strong></div>
+        <div>到院方式<br><strong>男友送來</strong></div>
+        <div>背景<br><strong>分手 24 小時</strong></div>
+        <div>主訴<br><strong>不太醒，叫得起來</strong></div>
+      </div>
+      <p class="case-narrative">床邊：<em>空 Acetaminophen 500mg</em>（原 100 顆）、<em>半罐 Diazepam</em>、<em>半瓶威士忌</em>。男友說<em>大約 4 小時前</em>發生。</p>
+      <p class="case-narrative hint">▸ 她現在看起來「還好」。<strong>但她真的還好嗎？</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 26 ─ CASE 5 CLUE -->
+<section class="slide" data-notes="意識變化來自 BZD+酒。但 4 hr APAP 200 µg/mL = Rumack-Matthew 毒性線。沒給 NAC 24-72hr 會肝衰死。">
+  <span class="slide-tag">26 ／ 線索揭曉</span>
+  <span class="micro" style="display:block;margin-bottom:1rem">CASE №05 ／ EVIDENCE</span>
+  <h2 style="margin-bottom:1.3rem">線索揭曉 — <em style="color:var(--peach);font-style:italic">三個藥三條路</em></h2>
+  <div class="clue-grid">
+    <div class="clue" data-step="1">
+      <div class="clue-label">線索 A ／ 表面看到的</div>
+      <h4>看起來只是嗜睡</h4>
+      <ul>
+        <li>BP <strong>100 / 70</strong>　&nbsp;HR 90</li>
+        <li>RR <strong>12</strong>　&nbsp;SpO₂ <strong>94%</strong></li>
+        <li>T 36.5°C　&nbsp;GCS <strong>E2V2M4</strong></li>
+        <li>瞳孔中等、皮膚正常、無嘔吐</li>
+      </ul>
+    </div>
+    <div class="clue" data-step="2">
+      <div class="clue-label">線索 B ／ 看不見的</div>
+      <h4>4 小時的血中濃度</h4>
+      <ul>
+        <li>APAP level <strong>200 µg/mL</strong>（at 4 hr）</li>
+        <li>→ Rumack-Matthew 圖：<strong>毒性區</strong></li>
+        <li>AST/ALT 還正常（<strong>因為才 4 小時</strong>）</li>
+        <li>BZD level 不重要、酒精 130 mg/dL</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 27 ─ CASE 5 DEDUCE -->
+<section class="slide" data-notes="答案是 NAC。眼前症狀不一定最致命。混合中毒找隱形的那個。">
+  <span class="slide-tag">27 ／ 推理時間</span>
+  <div class="deduce">
+    <span class="micro">CASE №05 ／ DEDUCTION</span>
+    <h2>三種藥都有可能。<br>哪一個是<em>真兇</em>？</h2>
+    <div class="options">
+      <div class="option"><span class="letter">A</span>Diazepam — 給 Flumazenil</div>
+      <div class="option"><span class="letter">B</span>Acetaminophen — 給 NAC</div>
+      <div class="option"><span class="letter">C</span>酒精 — 給生理食鹽水</div>
+      <div class="option"><span class="letter">D</span>三個都不重要，等她自己醒</div>
+    </div>
+    <p class="deduce-hint">提示：哪個藥<strong>現在看不出來</strong>，但 24–72 小時會殺人？</p>
+  </div>
+</section>
+
+<!-- 28 ─ CASE 5 VERDICT -->
+<section class="slide" data-notes="APAP 隱形殺手。NAC 8hr 內最有效 24hr 內都該給。不要 Flumazenil 叫醒。混合中毒把每瓶都當有毒。">
+  <span class="slide-tag">28 ／ 結案 №05</span>
+  <div class="verdict">
+    <div>
+      <span class="verdict-stamp">已結案</span>
+      <h2><span class="toxin">真兇</span>乙醯胺酚<br>Acetaminophen</h2>
+      <p class="verdict-body">BZD ＋ 酒精只是<strong>煙霧彈</strong>——讓她躺著。<br><strong>APAP 才是 48 小時後讓肝衰死亡的真兇。</strong></p>
+      <blockquote class="verdict-quip">「混合中毒，<br>最毒的不一定看得見。」</blockquote>
+    </div>
+    <div class="action-card">
+      <span class="micro">護理師三件事</span>
+      <h3>結案後該怎麼做</h3>
+      <ul class="action-list">
+        <li><span class="tag">藥</span><strong>N-Acetylcysteine（NAC）</strong>立刻給。<br>8 小時內最有效，24 小時內都該給。</li>
+        <li><span class="tag warn">禁忌</span>不要用 Flumazenil「叫醒她」。<br>可能誘發抽搐、揭露隱藏的 TCA 毒性。</li>
+        <li><span class="tag note">記</span>混合中毒，<strong>把每一瓶藥都當作有毒</strong>。<br>4 hr 抽 APAP level、salicylate、葡萄糖。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CLOSING                                               -->
+<!-- ════════════════════════════════════════════════════ -->
+
+<!-- 29 ─ TAKEAWAY -->
+<section class="slide" data-notes="三大 take-home points。讓學員拍照。你不用記得所有毒物，這三句話帶回病房就會救到人。">
+  <span class="slide-tag">29 ／ 帶回家</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">3 things to take home</span>
+  <h2>帶回家的<em style="color:var(--peach);font-style:italic">三</em>句話</h2>
+  <div class="takeaway-grid">
+    <div class="takeaway">
+      <span class="num">№ 01</span>
+      <h3>相信 Toxidrome，<br>別信病人的嘴。</h3>
+      <p>VS 4 個 + 瞳孔 + 皮膚 = 90% 的中毒答案。病史用來補強，不是主要證據。</p>
+    </div>
+    <div class="takeaway">
+      <span class="num">№ 02</span>
+      <h3>看到這四個，<br>立刻叫醫師。</h3>
+      <p><strong>QRS &gt; 100 ms　／　T &gt; 40°C　／　抽搐　／　GCS 突然掉</strong>——任何一個出現都是 ICU 等級警訊。</p>
+    </div>
+    <div class="takeaway">
+      <span class="num">№ 03</span>
+      <h3>救人前，<br>先救你自己。</h3>
+      <p>不明粉末／液體／衣物味道 → 戴 PPE、脫衣、沖洗。家屬情緒不穩 → 叫保全。你倒下，沒人能救病人。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 30 ─ CLOSING -->
+<section class="slide closing-slide" data-notes="結語：感謝大家。把今天口訣貼在護理站。台灣毒物諮詢專線 02-2871-7121。">
+  <span class="slide-tag" style="position:absolute">30 ／ 結語</span>
+  <div class="title-eyebrow" style="margin-bottom:2rem">— 結業 ／ 毒物偵探社 first season ─</div>
+  <h1 style="font-size:clamp(2.8rem,5.5vw,4.5rem)">破了五個案件，<br>你已經是<span style="color:var(--peach);font-style:italic">準偵探</span>了。</h1>
+  <p class="lede" style="margin-top:2rem">下次班上有「不太對勁」的病人，<br>記得問自己——<br><strong style="color:var(--ink)">vital signs 怎麼動？瞳孔怎麼樣？皮膚乾還是濕？</strong></p>
+  <p style="margin-top:2.5rem;font-size:1.55rem;color:var(--ink-faint);max-width:55ch;text-align:center;line-height:1.7">
+    台灣毒物諮詢專線（24 hr）<br>
+    <strong style="color:var(--peach);font-family:JetBrains Mono;font-size:2.2rem;letter-spacing:.05em">02 – 2871 – 7121</strong><br>
+    <span style="font-size:1.5rem;color:var(--ink-faint)">榮總臨床毒物與職業醫學部</span>
+  </p>
+  <div class="signoff">Detective's License No. 20260522 ／ Q & A 開始</div>
+</section>
+
+</div>
+
+<div id="notes"><div class="label">講者備註　·　按 N 關閉</div><div id="notes-content"></div></div>
+
+<div id="chrome">
+  <button class="nav-btn" id="prev">◂ 上一張</button>
+  <div id="counter"><span class="current">01</span> ／ 30</div>
+  <button class="nav-btn" id="next">下一張 ▸</button>
+</div>
+
+<div id="hint">
+  <kbd>←</kbd><kbd>→</kbd> 換頁　·　<kbd>Space</kbd> 揭線索　·　<kbd>N</kbd> 講者備註　·　<kbd>F</kbd> 全螢幕
+</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.querySelector('#counter .current');
+  const totalEl = document.querySelector('#counter');
+  const progress = document.getElementById('progress');
+  const notes = document.getElementById('notes');
+  const notesContent = document.getElementById('notes-content');
+  let current = 0;
+  let revealStep = 0;
+
+  totalEl.innerHTML = '<span class="current">01</span> ／ ' + String(slides.length).padStart(2,'0');
+
+  function showSlide(i){
+    slides.forEach((s,idx)=>{
+      s.classList.toggle('active', idx===i);
+      if(idx===i){
+        const clues = s.querySelectorAll('.clue[data-step]');
+        clues.forEach(c=>c.classList.remove('revealed'));
+        revealStep = 0;
+      }
+    });
+    counter.textContent = String(i+1).padStart(2,'0');
+    progress.style.width = ((i+1)/slides.length*100) + '%';
+    const n = slides[i].dataset.notes || '（無備註）';
+    notesContent.textContent = n;
+  }
+
+  function next(){
+    const active = slides[current];
+    const clues = active.querySelectorAll('.clue[data-step]');
+    if(clues.length > 0 && revealStep < clues.length){
+      revealStep++;
+      const target = active.querySelector('.clue[data-step="'+revealStep+'"]');
+      if(target) target.classList.add('revealed');
+      return;
+    }
+    if(current < slides.length-1){ current++; showSlide(current); }
+  }
+
+  function prev(){ if(current > 0){ current--; showSlide(current); } }
+
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); next(); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key === 'Home'){ current = 0; showSlide(0); }
+    else if(e.key === 'End'){ current = slides.length-1; showSlide(current); }
+    else if(e.key === 'n' || e.key === 'N'){ notes.classList.toggle('show'); }
+    else if(e.key === 'f' || e.key === 'F'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.getElementById('deck').addEventListener('click', e=>{
+    if(e.target.closest('.nav-btn') || e.target.closest('#notes')) return;
+    next();
+  });
+
+  showSlide(0);
+})();
+</script>
+</body>
+</html>

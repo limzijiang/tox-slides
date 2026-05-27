@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毒物速通手冊 v2 · 五招教學版 ｜ 新進護理師中毒病人 60 分鐘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f5f1e8;--cream-dark:#ebe5d3;--paper:#fdfaf3;
+    --ink:#1c1a17;--ink-soft:#3d3933;--ink-faint:#6f6a5f;
+    --peach:#d97757;--peach-soft:#e9a17c;--stamp:#b8302b;
+    --line:#d4cfc1;--gold:#c89a3a;--teal:#3a7a76;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{font-size:18px}
+  html,body{height:100%;background:var(--cream);color:var(--ink);font-family:'Noto Sans TC','Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;background-image:radial-gradient(circle at 20% 30%,rgba(184,48,43,.025) 0,transparent 30%),radial-gradient(circle at 80% 70%,rgba(200,154,58,.03) 0,transparent 30%);mix-blend-mode:multiply}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");opacity:.35}
+
+  #deck{position:relative;height:100vh;width:100vw;overflow:hidden;z-index:3}
+  .slide{position:absolute;inset:0;padding:6vh 6vw 8vh;display:none;flex-direction:column;justify-content:center;opacity:0;transition:opacity .3s ease;overflow:hidden}
+  .slide.active{display:flex;opacity:1}
+  .slide-tag{position:absolute;top:3vh;left:6vw;font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.15em;color:var(--ink-faint);text-transform:uppercase;display:flex;align-items:center;gap:14px}
+  .slide-tag::before{content:"";width:28px;height:1px;background:var(--ink-faint)}
+  .source-tag{position:absolute;top:3vh;right:6vw;font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:var(--ink-faint);letter-spacing:.1em}
+  .source-tag::before{content:"※ ";color:var(--peach)}
+
+  h1,h2,h3,h4,h5{font-family:'Noto Serif TC','Crimson Pro',serif;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+  h1{font-size:clamp(3rem,5.5vw,5.5rem);color:var(--ink)}
+  h2{font-size:clamp(2.4rem,4.2vw,3.8rem)}
+  h3{font-size:clamp(1.8rem,2.5vw,2.4rem)}
+  h4{font-size:1.65rem}
+  p,li{font-size:1.5rem;line-height:1.65;color:var(--ink-soft)}
+  .lede{font-size:1.85rem;color:var(--ink);font-weight:400;line-height:1.55}
+  .micro{font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--peach);font-weight:500}
+
+  /* Title */
+  .title-slide{justify-content:flex-start;padding-top:12vh;align-items:flex-start}
+  .title-eyebrow{font-family:'JetBrains Mono',monospace;font-size:1.6rem;letter-spacing:.25em;color:var(--peach);margin-bottom:1.8rem;text-transform:uppercase}
+  .title-slide h1{font-size:clamp(4rem,7vw,7rem);font-weight:900;letter-spacing:-.02em;line-height:1.05}
+  .title-slide h1 .accent{color:var(--peach);font-style:italic;font-weight:600}
+  .title-sub{margin-top:2.2rem;font-size:1.85rem;color:var(--ink-soft);max-width:60ch;font-weight:300;line-height:1.5}
+  .title-meta{position:absolute;bottom:6vh;left:6vw;right:6vw;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--line);padding-top:1.5rem}
+  .title-meta .left,.title-meta .right{font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.15em;color:var(--ink-faint);text-transform:uppercase}
+  .stamp{position:absolute;right:6vw;top:13vh;font-family:'Noto Serif TC',serif;color:var(--stamp);border:3px solid var(--stamp);padding:.6rem 1.2rem;font-weight:900;font-size:1.8rem;transform:rotate(-8deg);opacity:.85;letter-spacing:.1em}
+  .version-tag{position:absolute;top:6vh;right:6vw;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--peach);letter-spacing:.2em;border:1px solid var(--peach);padding:.3rem .8rem;background:rgba(217,119,87,.05)}
+
+  /* Chapter divider */
+  .chapter{justify-content:center;align-items:flex-start;padding-left:10vw;padding-right:10vw}
+  .chapter .chap-no{font-family:'JetBrains Mono',monospace;font-size:1.6rem;letter-spacing:.3em;color:var(--peach);margin-bottom:1.5rem;text-transform:uppercase;font-weight:600}
+  .chapter h1{font-size:clamp(4rem,7vw,7rem);line-height:1.05}
+  .chapter h1 em{color:var(--peach);font-style:italic;font-weight:700}
+  .chapter .chap-sub{margin-top:2rem;font-size:1.85rem;color:var(--ink-soft);max-width:50ch;font-weight:300}
+  .chapter .chap-meta{margin-top:3rem;display:flex;gap:2.5rem;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase}
+  .chapter .chap-meta span strong{display:block;color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-size:1.6rem;text-transform:none;letter-spacing:0;margin-top:.3rem;font-weight:500}
+
+  /* Image figure */
+  .case-figure{position:relative;aspect-ratio:4/5;background:var(--cream-dark);border:1px solid var(--line);overflow:hidden;box-shadow:0 1px 0 rgba(28,26,23,.04),0 18px 35px -22px rgba(28,26,23,.3)}
+  .case-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;display:block}
+  .img-fallback{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:repeating-linear-gradient(45deg,var(--paper) 0 16px,var(--cream-dark) 16px 32px);color:var(--ink-faint);text-align:center;padding:2rem}
+  .img-fallback .fb-icon{font-size:5rem;color:var(--peach);opacity:.7}
+  .img-fallback .fb-title{font-family:'Noto Serif TC',serif;font-size:1.85rem;color:var(--ink);font-weight:700}
+  .img-fallback .fb-sub{font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.2em;text-transform:uppercase}
+  .case-figure figcaption{position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(28,26,23,.85));color:var(--cream);padding:1.5rem 1.5rem .8rem;font-family:'JetBrains Mono',monospace;font-size:1.4rem;letter-spacing:.1em}
+
+  /* Toxidrome detail card */
+  .tox-detail{display:grid;grid-template-columns:.85fr 1.3fr;gap:3vw;align-items:center;width:100%}
+  .tox-card{background:var(--paper);border:1px solid var(--line);padding:2rem 2.2rem;border-radius:2px;position:relative}
+  .tox-card::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:var(--peach)}
+  .tox-card.danger::before{background:var(--stamp)}
+  .tox-card.calm::before{background:var(--teal)}
+  .tox-card .tox-no{font-family:'JetBrains Mono',monospace;color:var(--peach);font-size:1.45rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem;font-weight:600}
+  .tox-card h2{font-size:clamp(2.2rem,3.2vw,2.8rem);margin-bottom:.4rem;color:var(--ink);line-height:1.1}
+  .tox-card .english{font-family:'JetBrains Mono',monospace;font-size:1.45rem;color:var(--ink-faint);letter-spacing:.1em;margin-bottom:1.2rem}
+  .tox-card .row{display:grid;grid-template-columns:120px 1fr;gap:.6rem 1rem;align-items:baseline;font-size:1.55rem;line-height:1.55;border-bottom:1px dashed var(--line);padding:.75rem 0}
+  .tox-card .row:last-child{border-bottom:none}
+  .tox-card .row .k{font-family:'JetBrains Mono',monospace;font-size:1.35rem;color:var(--peach);letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+  .tox-card .row .v{color:var(--ink-soft)}
+  .tox-card .row .v strong{color:var(--ink);font-weight:700}
+  .tox-card .quip{margin-top:1rem;font-style:italic;font-family:'Noto Serif TC',serif;color:var(--ink);font-size:1.55rem;line-height:1.55;border-left:3px solid var(--peach);padding-left:1.1rem}
+
+  /* Lesson grid */
+  .lesson-grid{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:flex-start}
+  .lesson-grid.skew{grid-template-columns:.9fr 1.1fr}
+  .lesson-left .micro{margin-bottom:1rem;display:block}
+  .lesson-left h2{margin-bottom:1.2rem}
+  .lesson-body p{margin-bottom:1rem;font-size:1.55rem;line-height:1.65}
+  .lesson-body p.callout{background:var(--paper);border-left:4px solid var(--peach);padding:1.2rem 1.4rem;font-style:italic;color:var(--ink);font-size:1.55rem}
+
+  /* Toxidrome compare table */
+  .tox-table{width:100%;border-collapse:collapse;background:var(--paper);font-size:1.5rem;margin-top:.8rem}
+  .tox-table th{text-align:left;padding:.95rem 1rem;background:var(--ink);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:1.45rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+  .tox-table td{padding:.85rem 1rem;border-bottom:1px solid var(--line);color:var(--ink-soft);vertical-align:top;font-size:1.5rem}
+  .tox-table tr:last-child td{border-bottom:none}
+  .tox-table td:first-child{font-weight:700;color:var(--ink);font-family:'Noto Serif TC',serif}
+  .tox-table .sub{font-size:1.25rem;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;display:block;margin-top:.2rem}
+  .up{color:var(--stamp);font-weight:700}
+  .dn{color:var(--teal);font-weight:700}
+  .eq{color:var(--ink-faint)}
+
+  /* Pills */
+  .pill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:.8rem}
+  .pill-grid.three{grid-template-columns:repeat(3,1fr)}
+  .pill{background:var(--paper);border:1px solid var(--line);padding:1.6rem 1.7rem;border-radius:2px}
+  .pill .word{font-family:'Noto Serif TC',serif;font-size:1.85rem;font-weight:700;color:var(--peach);margin-bottom:.7rem;letter-spacing:.05em}
+  .pill .expand{font-size:1.5rem;line-height:1.75;color:var(--ink-soft)}
+  .pill .expand b{color:var(--ink);font-weight:700}
+  .pill .quip{display:block;margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--line);color:var(--peach);font-size:1.4rem;font-style:italic;line-height:1.5}
+
+  /* ─── New PPT-style bullet list ─── */
+  .bullet-list{list-style:none;margin-top:.6rem}
+  .bullet-list > li{
+    position:relative;
+    padding:1.1rem 0 1.1rem 2.4rem;
+    font-size:1.6rem;line-height:1.55;color:var(--ink);
+    border-bottom:1px solid rgba(212,207,193,.6);
+  }
+  .bullet-list > li:last-child{border-bottom:none}
+  .bullet-list > li::before{
+    content:"▸";position:absolute;left:.3rem;top:1.05rem;
+    color:var(--peach);font-weight:700;font-size:1.4rem;
+  }
+  .bullet-list > li strong{color:var(--ink);font-weight:700}
+  .bullet-list .sub{
+    display:block;margin-top:.45rem;
+    color:var(--ink-faint);font-size:1.4rem;
+    font-style:italic;line-height:1.55;padding-left:0;
+  }
+  .bullet-list .quip{
+    display:block;margin-top:.45rem;
+    color:var(--peach);font-size:1.4rem;
+    font-style:italic;line-height:1.55;padding-left:0;
+  }
+  .bullet-list .quip::before{content:"☞ ";opacity:.7}
+
+  /* Improved action-list (with tags, traditional PPT) */
+  .action-list{list-style:none;margin-top:.5rem}
+  .action-list > li{
+    padding:1.15rem 0;
+    border-bottom:1px solid rgba(212,207,193,.6);
+    display:flex;gap:1.1rem;
+    font-size:1.6rem;line-height:1.55;
+    color:var(--ink);
+    align-items:flex-start;
+  }
+  .action-list > li:last-child{border-bottom:none}
+  .action-list strong{color:var(--ink);font-weight:700}
+  .action-list .tag{
+    font-family:'JetBrains Mono',monospace;font-size:1.3rem;
+    background:var(--peach);color:var(--paper);
+    padding:.3rem .7rem;border-radius:2px;
+    letter-spacing:.1em;font-weight:600;
+    flex-shrink:0;height:fit-content;margin-top:.2rem;
+    white-space:nowrap;min-width:80px;text-align:center;
+  }
+  .action-list .tag.warn{background:var(--stamp)}
+  .action-list .tag.note{background:var(--ink-soft)}
+  .action-list .tag.calm{background:var(--teal)}
+  .action-list .body{flex:1;min-width:0}
+  .action-list .body > .sub{
+    display:block;margin-top:.45rem;
+    color:var(--ink-faint);font-size:1.4rem;
+    font-style:italic;line-height:1.55;
+  }
+  .action-list .body > .quip{
+    display:block;margin-top:.45rem;
+    color:var(--peach);font-size:1.4rem;
+    font-style:italic;line-height:1.55;
+  }
+  .action-list .body > .quip::before{content:"☞ ";opacity:.7}
+
+  /* Fatal slides */
+  .fatal-slide{display:grid;grid-template-columns:1fr 1.4fr;gap:3vw;align-items:center}
+  .fatal-big{background:var(--paper);border:1px solid var(--line);padding:2.2rem;text-align:center;border-radius:2px;position:relative}
+  .fatal-big::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:var(--stamp)}
+  .fatal-big .num{font-family:'JetBrains Mono',monospace;color:var(--stamp);font-size:1.45rem;letter-spacing:.2em;margin-bottom:1rem;font-weight:700}
+  .fatal-big .glyph{font-size:5.5rem;display:block;margin:0 auto 1rem;line-height:1}
+  .fatal-big h2{font-size:clamp(2.2rem,3.5vw,3rem);margin-bottom:.8rem}
+  .fatal-big .tagline{font-size:1.55rem;color:var(--ink-faint);font-style:italic}
+  .fatal-body h3{font-size:1.85rem;margin-bottom:.6rem;color:var(--ink)}
+  .fatal-body .summary{font-size:1.55rem;color:var(--ink-soft);margin-bottom:1rem;line-height:1.6}
+
+  /* ECG figure (slide 20) */
+  .ecg-figure{
+    position:relative;background:#fef0eb;
+    border:1px solid var(--line);margin:.4rem 0 1rem;
+    aspect-ratio:16/9;overflow:hidden;border-radius:2px;
+    box-shadow:0 12px 28px -18px rgba(28,26,23,.3);
+    max-height:42vh;
+  }
+  .ecg-figure img{width:100%;height:100%;object-fit:cover;display:block}
+  .ecg-figure .ecg-fallback{
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(0deg,#fed4c8 0 4px,#fef0eb 4px 8px),repeating-linear-gradient(90deg,rgba(184,48,43,.15) 0 1px,transparent 1px 8px);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--stamp);font-family:'Noto Serif TC',serif;
+    font-size:1.85rem;text-align:center;flex-direction:column;gap:1rem;
+  }
+  .ecg-figure figcaption{
+    position:absolute;bottom:0;left:0;right:0;
+    background:linear-gradient(transparent,rgba(28,26,23,.85));
+    color:var(--cream);padding:1.2rem 1.4rem .7rem;
+    font-family:'JetBrains Mono',monospace;font-size:1.35rem;
+    letter-spacing:.08em;
+  }
+  .ecg-feature-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:.8rem}
+  .ecg-feat{background:var(--paper);border:1px solid var(--line);padding:1rem 1.1rem;border-radius:2px;position:relative}
+  .ecg-feat .num{font-family:'Noto Serif TC',serif;font-size:1.7rem;color:var(--peach);font-weight:900;line-height:1}
+  .ecg-feat strong{display:block;font-family:'Noto Serif TC',serif;font-size:1.5rem;color:var(--ink);margin:.3rem 0 .25rem;font-weight:700;line-height:1.25}
+  .ecg-feat .sub{display:block;font-size:1.3rem;color:var(--ink-faint);line-height:1.45}
+  .ecg-confirm{
+    background:var(--paper);border-left:4px solid var(--peach);
+    padding:.95rem 1.4rem;font-size:1.5rem;color:var(--ink);
+    line-height:1.6;
+  }
+  .ecg-confirm strong{color:var(--peach)}
+  .ecg-confirm em{font-style:italic;color:var(--ink-faint);font-size:1.35rem;display:block;margin-top:.35rem}
+
+  /* Urine tox rows */
+  .urine-row{background:var(--paper);border:1px solid var(--line);padding:1rem 1.2rem;border-radius:2px;margin-bottom:.6rem;display:grid;grid-template-columns:170px 1fr;gap:1rem;align-items:start}
+  .urine-row .drug{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--ink);font-size:1.55rem}
+  .urine-row .causes{color:var(--ink-soft);font-size:1.45rem;line-height:1.55}
+  .urine-row.warn{border:2px solid var(--stamp);background:rgba(184,48,43,.04)}
+  .urine-row.warn .drug{color:var(--stamp)}
+
+  /* Antidote */
+  .antidote{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-top:.8rem}
+  .antidote-row{background:var(--paper);border:1px solid var(--line);padding:.95rem 1.2rem;display:flex;align-items:center;gap:1rem;border-radius:2px}
+  .antidote-row .poison{flex:1;font-family:'Noto Serif TC',serif;font-weight:700;color:var(--ink);font-size:1.55rem}
+  .antidote-row .arrow{color:var(--peach);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.6rem}
+  .antidote-row .cure{flex:1;color:var(--ink-soft);font-size:1.5rem;text-align:right;font-weight:500}
+
+  /* Takeaway */
+  .takeaway-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.5rem}
+  .takeaway{background:var(--paper);border:1px solid var(--line);padding:2.2rem 1.8rem;border-radius:2px;position:relative}
+  .takeaway .num{position:absolute;top:-20px;left:1.8rem;background:var(--stamp);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:1.45rem;font-weight:700;padding:.3rem .8rem;letter-spacing:.1em}
+  .takeaway h3{font-family:'Noto Serif TC',serif;font-size:1.85rem;margin-bottom:.9rem;color:var(--ink);margin-top:.5rem;line-height:1.25}
+  .takeaway p{font-size:1.5rem;line-height:1.65}
+
+  /* Roster */
+  .roster{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:1.8rem}
+  .roster-item{background:var(--paper);border:1px solid var(--line);padding:1.3rem 1rem;border-radius:2px;text-align:center}
+  .roster-item .case-num{font-family:'JetBrains Mono',monospace;color:var(--peach);font-size:1.45rem;letter-spacing:.1em;margin-bottom:.6rem;font-weight:600}
+  .roster-item h4{font-family:'Noto Serif TC',serif;font-size:1.55rem;color:var(--ink);font-weight:700;margin-bottom:.4rem;line-height:1.3}
+  .roster-item p{font-size:1.4rem;color:var(--ink-faint);line-height:1.4}
+
+  /* Rules with humor */
+  .rules-list{list-style:none;margin-top:1rem}
+  .rules-list li{padding:1.3rem 0;border-bottom:1px solid var(--line);display:flex;gap:1.5rem;align-items:flex-start}
+  .rules-list li:last-child{border-bottom:none}
+  .rules-list .n{font-family:'Noto Serif TC',serif;font-size:3rem;color:var(--peach);font-weight:900;line-height:1;flex-shrink:0;min-width:60px}
+  .rules-list h4{font-family:'Noto Serif TC',serif;font-size:1.75rem;margin-bottom:.3rem;color:var(--ink);font-weight:700}
+  .rules-list p{font-size:1.5rem;line-height:1.55;color:var(--ink-soft)}
+  .rules-list p.quip{margin-top:.35rem;color:var(--peach);font-size:1.4rem;font-style:italic}
+  .rules-list p.quip::before{content:"☞ ";opacity:.7}
+
+  /* Quote */
+  .quote-slide{justify-content:center;align-items:center;text-align:center;padding:0 10vw}
+  .quote-slide blockquote{font-family:'Noto Serif TC',serif;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.4;font-weight:500;color:var(--ink);font-style:italic;max-width:34ch}
+  .quote-slide blockquote::before{content:"\201C";color:var(--peach);font-size:1.5em;line-height:0;margin-right:.1em;vertical-align:-0.2em}
+  .quote-slide blockquote::after{content:"\201D";color:var(--peach);font-size:1.5em;line-height:0;margin-left:.05em;vertical-align:-0.4em}
+  .quote-cite{margin-top:2rem;font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
+
+  /* Closing */
+  .closing-slide{align-items:center;text-align:center;justify-content:center}
+  .closing-slide h1{margin-bottom:1.5rem}
+  .closing-slide .lede{max-width:55ch;margin:0 auto 2.5rem}
+  .signoff{margin-top:2.5rem;font-family:'JetBrains Mono',monospace;font-size:1.5rem;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
+  .signoff::before{content:"—  ";color:var(--peach)}
+
+  /* Chrome */
+  #chrome{position:fixed;bottom:0;left:0;right:0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5vw;z-index:50;pointer-events:none;background:linear-gradient(transparent,rgba(245,241,232,.95))}
+  .nav-btn{pointer-events:auto;background:transparent;border:none;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);cursor:pointer;padding:.5rem .8rem;letter-spacing:.08em;transition:color .2s}
+  .nav-btn:hover{color:var(--peach)}
+  #counter{pointer-events:auto;font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--ink-faint);letter-spacing:.15em}
+  #counter .current{color:var(--ink);font-weight:600}
+  #progress{position:fixed;top:0;left:0;height:4px;background:var(--peach);transition:width .35s ease;z-index:60;width:0%}
+  #hint{position:fixed;bottom:62px;right:2.5vw;font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:var(--ink-faint);letter-spacing:.08em;pointer-events:none;z-index:40;opacity:.55}
+  #hint kbd{background:var(--paper);border:1px solid var(--line);padding:.15rem .45rem;border-radius:3px;margin:0 .15rem;font-family:inherit;font-size:1.3rem;color:var(--ink)}
+  #notes{position:fixed;bottom:65px;left:2.5vw;right:2.5vw;background:rgba(28,26,23,.96);color:var(--cream);border-radius:6px;padding:1.4rem 1.8rem;font-size:1.5rem;line-height:1.6;max-height:35vh;overflow-y:auto;display:none;z-index:55}
+  #notes.show{display:block}
+  #notes .label{font-family:'JetBrains Mono',monospace;font-size:1.35rem;letter-spacing:.2em;color:var(--peach);margin-bottom:.6rem;text-transform:uppercase}
+
+  @media (max-width:1280px){html{font-size:16px}}
+  @media (max-width:900px){html{font-size:15px}.tox-detail,.lesson-grid,.fatal-slide{grid-template-columns:1fr;gap:1.5rem}.pill-grid,.pill-grid.three,.antidote,.ecg-feature-strip{grid-template-columns:1fr}.takeaway-grid,.roster{grid-template-columns:repeat(2,1fr)}.urine-row{grid-template-columns:1fr}.slide{padding:5vh 5vw 9vh}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="deck">
+
+<!-- 01 TITLE -->
+<section class="slide title-slide" data-notes="開場致詞：歡迎大家。今晚 60 分鐘，五招拆解中毒病人。內容嚴格依 EMCrit IBCC 改編。手機可拍照、邊聽邊發問、講錯沒關係。">
+  <span class="version-tag">V2 ／ LECTURE</span>
+  <span class="slide-tag">01 ／ 開場</span>
+  <div class="title-eyebrow">— 一小時護理進階課程 ／ EMCrit IBCC 改編</div>
+  <h1>毒物速通<br><span class="accent">五招手冊</span></h1>
+  <p class="title-sub">新進急診與加護病房護理師<br>的中毒病人 60 分鐘速成。<br>五招拆解：病史 · 症候群 · 暗號 · 解毒 · 救命。</p>
+  <div class="stamp">機密 ／ 限員工</div>
+  <div class="title-meta">
+    <div class="left">講師：[您的名字]　·　60 MIN　·　TPE</div>
+    <div class="right">SOURCE ／ EMCRIT.ORG/IBCC/TOX</div>
+  </div>
+</section>
+
+<!-- 02 為什麼第一道防線 -->
+<section class="slide" data-notes="開場 hook：講一個真實病人。重點：『不是要你診斷，是要你會講出 red flag。』可以講『你是急診的霍華德——醫師還在 Sherlock 推理，你已經用 vital signs 破案。』讓全班笑一下。">
+  <span class="slide-tag">02 ／ 開場</span>
+  <span class="source-tag">改編自 EMCrit IBCC Tox</span>
+  <div class="lesson-grid">
+    <div class="lesson-left">
+      <span class="micro">Why we are here</span>
+      <h2>為什麼<em style="color:var(--peach);font-style:italic">護理師</em><br>是中毒病人的<br>第一道防線？</h2>
+    </div>
+    <div class="lesson-body">
+      <p class="callout">「醫師寫的是『意識不清待查』，<br>但<strong>是你</strong>在 5 分鐘後抬頭說：<br>『他瞳孔針尖、呼吸很慢。』」</p>
+      <p style="margin-top:1.2rem">中毒病人不會自己舉手說「我吞了 50 顆 TCA」。<br>他只會躺在那邊，<strong>等你發現異常</strong>。</p>
+      <p style="color:var(--peach);font-style:italic;font-size:1.45rem;margin-top:.8rem">☞ 你是急診的華生——醫師還在當福爾摩斯推理時，你已經用 vital signs 破案了。</p>
+      <p style="margin-top:1rem">今晚目標 — 建立<strong>三秒反射</strong>：<br>看 vital signs → 看瞳孔 → 摸皮膚 → 心裡有答案。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 五招地圖 -->
+<section class="slide" data-notes="說明五招架構（1 分鐘）。『不是要你變毒物科醫師，是要你能 30 秒抓 red flag。』">
+  <span class="slide-tag">03 ／ 課程地圖</span>
+  <span class="source-tag">總時長 60 分鐘</span>
+  <span class="micro">Tonight's 5 chapters</span>
+  <h2 style="margin-bottom:1.5rem">五招速通<em style="color:var(--peach);font-style:italic">路線圖</em></h2>
+  <div class="roster">
+    <div class="roster-item"><div class="case-num">第一招 ／ 5 min</div><h4>別信病人<br>的鬼話</h4><p>病史不可靠<br>家屬問話技巧</p></div>
+    <div class="roster-item"><div class="case-num">第二招 ／ 15 min</div><h4>五大毒<br>症候群</h4><p>交感／抗膽鹼／<br>膽鹼／鴉片／鎮靜</p></div>
+    <div class="roster-item"><div class="case-num">第三招 ／ 10 min</div><h4>VS · PE · ECG<br>· Lab 暗號</h4><p>瞳孔／皮膚／<br>QRS／尿液 tox</p></div>
+    <div class="roster-item"><div class="case-num">第四招 ／ 8 min</div><h4>解毒劑<br>與淨化</h4><p>活性碳／WBI／<br>Naloxone／NAC</p></div>
+    <div class="roster-item"><div class="case-num">第五招 ／ 12 min</div><h4>四大致命<br>併發症</h4><p>抽搐／躁動／<br>高體溫／心律不整</p></div>
+  </div>
+</section>
+
+<!-- 04 §1 CHAPTER -->
+<section class="slide chapter" data-notes="第一招。EMCrit 原文 'notoriously unreliable'。可講『中毒病人的病史，跟前任承諾一樣不能信。』全班一笑，氣氛打開。">
+  <span class="slide-tag">04 ／ 第一招</span>
+  <div class="chap-no">CHAPTER №01 ／ 5 MIN</div>
+  <h1>別信病人<br>的<em>鬼話</em>。</h1>
+  <p class="chap-sub">病史不可靠時，<br>身體會自己說真話。</p>
+  <div class="chap-meta">
+    <span>核心觀念<strong>病史 ≠ 真相</strong></span>
+    <span>EMCrit 原文<strong>"notoriously unreliable"</strong></span>
+  </div>
+</section>
+
+<!-- 05 病史三大陷阱 -->
+<section class="slide" data-notes="三大陷阱：劑量低估、時間錯置、多重藥物。每個都加一個笑話讓學員記得。">
+  <span class="slide-tag">05 ／ 第一招 · 陷阱</span>
+  <span class="source-tag">EMCrit · History pitfalls</span>
+  <span class="micro">3 traps</span>
+  <h2 style="margin-bottom:1.5rem">病史的三大<em style="color:var(--peach);font-style:italic">陷阱</em></h2>
+  <div class="pill-grid three">
+    <div class="pill">
+      <div class="word">陷阱 №1 ／ 劑量低估</div>
+      <div class="expand">自殺意圖病人會「報少」。<b>他說 5 顆，可能是 50 顆。</b><br><br>對策：看空藥瓶、估剩餘、查處方拿藥時間。<span class="quip">病人說「我只吃了 5 顆」，就像吃到飽的人說「我等下不吃晚餐」——你信你輸。</span></div>
+    </div>
+    <div class="pill">
+      <div class="word">陷阱 №2 ／ 時間錯置</div>
+      <div class="expand">「剛剛吃的」可能其實是 <b>4–6 小時前</b>。家屬說的「剛剛」，往往是「他們<b>發現</b>病人的時間」，而不是「病人<b>吃藥</b>的時間」。<br><br>對策：查 LINE 紀錄、最後一次正常對話、手機解鎖時間。<span class="quip">家屬的時間感跟阿嬤煮的湯一樣——永遠「再 5 分鐘就好」。</span></div>
+    </div>
+    <div class="pill">
+      <div class="word">陷阱 №3 ／ 多重藥物</div>
+      <div class="expand">青少年自殺 ≥ 2 種藥的比例 <b>＞ 70%</b>，常包括酒精。<br><br>對策：預設「至少還有一種沒講」。床邊每瓶藥都當有毒。<span class="quip">誰失戀只吃一顆藥？要嘛沒吃，要嘛把整罐倒進去。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 問家屬三招 -->
+<section class="slide" data-notes="問話技巧。不要問「他吃了什麼」要問「家裡有什麼」。派人或請救護員回家拍藥瓶。台灣阿公阿嬤的藥袋常混在一起。">
+  <span class="slide-tag">06 ／ 第一招 · 問家屬</span>
+  <span class="source-tag">護理師現場技巧</span>
+  <span class="micro">3 questions</span>
+  <h2 style="margin-bottom:1.5rem">問家屬的<em style="color:var(--peach);font-style:italic">三招</em></h2>
+  <ul class="rules-list">
+    <li>
+      <span class="n">01</span>
+      <div>
+        <h4>不要問「吃了什麼」，要問「家裡有什麼」</h4>
+        <p>「他平常吃哪些藥？藥袋還在不在？最近有沒有看醫師拿新藥？」——比問「吃了多少」實用十倍。</p>
+        <p class="quip">問「吃了什麼」就像問前任「最近好嗎」——答案永遠是「還好」。</p>
+      </div>
+    </li>
+    <li>
+      <span class="n">02</span>
+      <div>
+        <h4>派人回現場 · 拍藥瓶 · 數空格</h4>
+        <p>請救護員、家屬甚至警察回現場，拍下<strong>每個藥瓶的標籤與剩餘數量</strong>。</p>
+        <p class="quip">空藥瓶 = 病人的供詞。比測謊機準。</p>
+      </div>
+    </li>
+    <li>
+      <span class="n">03</span>
+      <div>
+        <h4>預設「他吃的不只一種」</h4>
+        <p>看到 BZD 別忘了驗 APAP。看到 APAP 別忘了驗 salicylate。看到酒精別忘了測 EtOH + anion gap。</p>
+        <p class="quip">想像你是衣櫃——通常至少有兩件衣服掉下來。</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- 07 金句 -->
+<section class="slide quote-slide" data-notes="收尾金句。EMCrit 'notoriously unreliable'。讓學員記住這句。">
+  <span class="slide-tag">07 ／ 第一招 · 收尾</span>
+  <blockquote>中毒病人的病史，跟前任的承諾一樣<br>—— <span style="color:var(--peach)">不能信</span>。</blockquote>
+  <div class="quote-cite">— 改編自 EMCRIT IBCC ／ "TOXICOLOGY HISTORIES ARE NOTORIOUSLY UNRELIABLE"</div>
+  <div style="margin-top:3rem;max-width:680px;text-align:center;font-size:1.55rem;line-height:1.7;color:var(--ink-soft)">
+    所以你要做的三件事：<br>
+    <strong style="color:var(--ink)">①</strong> 問家屬，不要只問病人　<strong style="color:var(--ink)">②</strong> 派人回現場拍藥瓶　<strong style="color:var(--ink)">③</strong> 預設「他吃的不只一種」
+  </div>
+</section>
+
+<!-- 08 §2 CHAPTER -->
+<section class="slide chapter" data-notes="第二招。『你不用記每個毒物名字，但要分這五大群——90% 的中毒都在裡面。』">
+  <span class="slide-tag">08 ／ 第二招</span>
+  <div class="chap-no">CHAPTER №02 ／ 15 MIN</div>
+  <h1><em>五大</em>毒症候群</h1>
+  <p class="chap-sub">交感 · 抗膽鹼 · 膽鹼 · 鴉片 · 鎮靜安眠<br>—— 90% 的中毒都在這五個籃子裡。</p>
+  <div class="chap-meta">
+    <span>核心觀念<strong>vitals + 瞳孔 + 皮膚 = 答案</strong></span>
+    <span>每個 toxidrome<strong>1 張詳解</strong></span>
+  </div>
+</section>
+
+<!-- 09 對照表 -->
+<section class="slide" data-notes="核心對照表。讓學員拍照。『這張表是中毒病人的命盤，對到了人生就有解釋。』">
+  <span class="slide-tag">09 ／ 第二招 · 對照表</span>
+  <span class="source-tag">EMCrit · Toxidromes</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Cheat sheet</span>
+  <h2 style="margin-bottom:1rem">五大 Toxidrome — 一表掌握</h2>
+  <table class="tox-table">
+    <thead><tr><th>毒症候群</th><th>HR</th><th>BP</th><th>RR</th><th>T</th><th>瞳孔</th><th>皮膚</th><th>意識</th></tr></thead>
+    <tbody>
+      <tr><td>交感興奮<span class="sub">Sympathomimetic</span></td><td class="up">↑↑</td><td class="up">↑↑</td><td class="up">↑</td><td class="up">↑↑</td><td>散大</td><td>潮紅+<span class="up">汗</span></td><td>躁動</td></tr>
+      <tr><td>抗膽鹼<span class="sub">Anticholinergic</span></td><td class="up">↑</td><td class="up">↑</td><td class="eq">→</td><td class="up">↑</td><td>散大</td><td>乾紅熱</td><td>譫妄</td></tr>
+      <tr><td>膽鹼性<span class="sub">Cholinergic</span></td><td class="dn">↓</td><td class="dn">↓</td><td class="up">↑痰</td><td class="eq">→</td><td>針尖</td><td><span class="up">大量分泌</span></td><td>無力／抽搐</td></tr>
+      <tr><td>鴉片<span class="sub">Opioid</span></td><td class="dn">↓</td><td class="dn">↓</td><td class="dn">↓↓</td><td class="dn">↓</td><td>針尖</td><td>濕冷</td><td>昏睡</td></tr>
+      <tr><td>鎮靜安眠<span class="sub">Sedative-hypnotic</span></td><td class="dn">↓</td><td class="dn">↓</td><td class="dn">↓</td><td class="eq">→</td><td>多正常</td><td>正常</td><td>昏睡</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:1rem;font-size:1.5rem;color:var(--ink-faint);font-style:italic">速記：交感「樣樣高 + 出汗」　·　抗膽鹼「樣樣高 + 乾燥」　·　膽鹼「全身漏水」　·　鴉片「樣樣低 + 針尖」　·　鎮靜「就是睡到不行」</p>
+  <p style="margin-top:.6rem;font-size:1.4rem;color:var(--peach);font-style:italic">☞ 這張表是中毒病人的命盤。對到了，人生就有解釋。</p>
+</section>
+
+<!-- 10 交感興奮 -->
+<section class="slide" data-notes="Sympathomimetic。皮膚潮濕是與抗膽鹼最大差別。BZD first。禁單獨用 β-blocker（unopposed alpha → 血壓更高 + 心肌缺血）。">
+  <span class="slide-tag">10 ／ 第二招 · Toxidrome 1/5</span>
+  <span class="source-tag">EMCrit · Sympathomimetic</span>
+  <div class="tox-detail">
+    <figure class="case-figure">
+      <img src="img/02-nightclub-iron.png" alt="交感興奮" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">Sympathomimetic</div><div class="fb-sub">交感興奮</div></div>
+      <figcaption>VISUAL ARCHETYPE №01</figcaption>
+    </figure>
+    <div class="tox-card danger">
+      <div class="tox-no">TOXIDROME №01 ／ 5</div>
+      <h2>交感興奮</h2>
+      <div class="english">Sympathomimetic</div>
+      <div class="row"><span class="k">代表毒物</span><span class="v">Cocaine、Amphetamine、Methamphetamine、MDMA、合成卡西酮 (浴鹽)、Phencyclidine</span></div>
+      <div class="row"><span class="k">機轉</span><span class="v">兒茶酚胺釋放 ／ 再回收抑制 → α + β 過度刺激</span></div>
+      <div class="row"><span class="k">表現</span><span class="v">↑↑ <strong>HR / BP / RR / T</strong>、瞳孔散大、皮膚<strong>潮紅 + 多汗</strong>、躁動、顫抖</span></div>
+      <div class="row"><span class="k">關鍵分辨</span><span class="v">與抗膽鹼差別 = <strong>「汗」</strong>（交感濕，抗膽鹼乾）</span></div>
+      <div class="row"><span class="k">處置</span><span class="v"><strong>BZD 首選</strong>、物理降溫、<strong>禁單獨用 β-blocker</strong></span></div>
+      <p class="quip">「喝了二十杯星巴克加五罐紅牛的鋼鐵人。」<br><span style="font-size:1.35rem;color:var(--ink-faint);font-style:normal;font-family:'Noto Sans TC';display:block;margin-top:.5rem">☞ 單獨用 β-blocker = 火上澆油，還倒一桶油下去泡澡。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 抗膽鹼 -->
+<section class="slide" data-notes="Anticholinergic。TCA 特別 — 加 sodium channel blockade → 寬 QRS。Physostigmine 只用純 anticholinergic，TCA 禁忌（會誘發抽搐+心搏停止）。">
+  <span class="slide-tag">11 ／ 第二招 · Toxidrome 2/5</span>
+  <span class="source-tag">EMCrit · Anticholinergic</span>
+  <div class="tox-detail">
+    <figure class="case-figure">
+      <img src="img/03-mad-hatter-grandma.png" alt="抗膽鹼" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">Anticholinergic</div><div class="fb-sub">抗膽鹼</div></div>
+      <figcaption>VISUAL ARCHETYPE №02</figcaption>
+    </figure>
+    <div class="tox-card">
+      <div class="tox-no">TOXIDROME №02 ／ 5</div>
+      <h2>抗膽鹼</h2>
+      <div class="english">Anticholinergic</div>
+      <div class="row"><span class="k">代表毒物</span><span class="v">TCA（amitriptyline）、抗組織胺（diphenhydramine）、抗精神病、Atropine、Scopolamine、曼陀羅</span></div>
+      <div class="row"><span class="k">機轉</span><span class="v">蕈毒鹼受體拮抗 → 全身副交感被關</span></div>
+      <div class="row"><span class="k">表現</span><span class="v">↑ HR / BP / T、瞳孔散大、<strong>皮膚乾紅熱</strong>、譫妄抓空、<strong>尿滯留</strong>、腸蠕動停</span></div>
+      <div class="row"><span class="k">口訣</span><span class="v">瘋帽客六句：熱兔、乾枯骨、紅甜菜、瘋帽匠、看不到、尿不出</span></div>
+      <div class="row"><span class="k">特別注意</span><span class="v"><strong>TCA</strong> 還會 sodium channel block → 寬 QRS、抽搐、難治性低血壓</span></div>
+      <div class="row"><span class="k">處置</span><span class="v">BZD（agitation）、<strong>Physostigmine 僅用純 anticholinergic</strong>，TCA 禁忌</span></div>
+      <p class="quip">「乾得像沙漠的瘋帽客。」<br><span style="font-size:1.35rem;color:var(--ink-faint);font-style:normal;font-family:'Noto Sans TC';display:block;margin-top:.5rem">☞ TCA 還附贈第二殺器（Na 通道阻斷）。買一送一，包君死路。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 膽鹼性 -->
+<section class="slide" data-notes="Cholinergic。救人前先 PPE！Atropine titrate to dry lungs（可能 100mg+）。肺水腫=bronchorrhea。台灣有機磷自殺常見。">
+  <span class="slide-tag">12 ／ 第二招 · Toxidrome 3/5</span>
+  <span class="source-tag">EMCrit · Cholinergic</span>
+  <div class="tox-detail">
+    <figure class="case-figure">
+      <img src="img/04-leaking-farmer.png" alt="膽鹼性" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">Cholinergic</div><div class="fb-sub">膽鹼性</div></div>
+      <figcaption>VISUAL ARCHETYPE №03</figcaption>
+    </figure>
+    <div class="tox-card danger">
+      <div class="tox-no">TOXIDROME №03 ／ 5</div>
+      <h2>膽鹼性</h2>
+      <div class="english">Cholinergic</div>
+      <div class="row"><span class="k">代表毒物</span><span class="v"><strong>有機磷農藥</strong>、Carbamate、神經毒劑（沙林）、菸鹼、某些蕈類</span></div>
+      <div class="row"><span class="k">機轉</span><span class="v">乙醯膽鹼酯酶 (AChE) 抑制 → ACh 大爆發</span></div>
+      <div class="row"><span class="k">表現</span><span class="v">↓ HR / BP、瞳孔<strong>針尖</strong>、SLUDGE 全身分泌、肌肉束顫、無力、抽搐</span></div>
+      <div class="row"><span class="k">致命關鍵</span><span class="v">肺水腫 = <strong>bronchorrhea</strong>（不是心衰）；呼吸肌麻痺</span></div>
+      <div class="row"><span class="k">處置</span><span class="v"><strong>① PPE 先</strong>　② Atropine titrate <strong>to dry lungs</strong>（可達 100 mg+）　③ 2-PAM 早給</span></div>
+      <p class="quip">「全身漏水的水龍頭。救人前，先關自己這道。」<br><span style="font-size:1.35rem;color:var(--ink-faint);font-style:normal;font-family:'Noto Sans TC';display:block;margin-top:.5rem">☞ 把 bronchorrhea 當心衰治會死人——這不是太多水，是太多『水龍頭沒關』。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 DUMBELS 口訣 -->
+<section class="slide" data-notes="兩個救命口訣。DUMBELS 圖印起來貼護理站。瘋帽客全班一起唸。對比：膽鹼=漏水，抗膽鹼=沙漠。">
+  <span class="slide-tag">13 ／ 第二招 · 護理師口訣</span>
+  <span class="source-tag">Mnemonics</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Mnemonic comparison</span>
+  <h2 style="margin-bottom:1rem">兩個救命口訣 — <em style="color:var(--peach);font-style:italic">漏水 vs 沙漠</em></h2>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:start">
+    <div class="pill-grid" style="grid-template-columns:1fr">
+      <div class="pill">
+        <div class="word">DUMBELS</div>
+        <div class="expand"><b>膽鹼性中毒</b>（漏水）　<span style="color:var(--ink-faint);font-size:1.3rem">有機磷、神經毒劑</span><br><br><b>D</b>iarrhea 拉肚子　<b>U</b>rination 尿失禁<br><b>M</b>iosis 瞳孔針尖　<b>B</b>radycardia／<b>B</b>ronchorrhea<br><b>E</b>mesis 嘔吐　<b>L</b>acrimation 流淚<br><b>S</b>alivation 流口水<span class="quip">水龍頭沒關。每個閥門都在漏。</span></div>
+      </div>
+      <div class="pill">
+        <div class="word">瘋帽客六句</div>
+        <div class="expand"><b>抗膽鹼中毒</b>（沙漠）　<span style="color:var(--ink-faint);font-size:1.3rem">TCA、抗組織胺、莨菪鹼</span><br><br>熱得像<b>兔子</b>（高燒）　乾得像<b>枯骨</b>（不出汗）<br>紅得像<b>甜菜</b>（皮膚潮紅）　瘋得像<b>帽匠</b>（譫妄）<br>看不到（散瞳）　尿不出（尿滯留）<span class="quip">愛麗絲掉進的不是兔子洞，是 ED。</span></div>
+      </div>
+    </div>
+    <figure class="case-figure" style="aspect-ratio:3/4">
+      <img src="img/05-dumbels-mnemonic.png" alt="DUMBELS 口訣圖解" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">DUMBELS 圖解</div><div class="fb-sub">護理站張貼用</div></div>
+      <figcaption>口訣海報</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 14 鴉片 -->
+<section class="slide" data-notes="Opioid。EMCrit 列：heroin, fentanyl, carfentanyl, oxycodone, buprenorphine, tramadol, methadone。Naloxone titrate 0.04-0.4mg → RR>10。Fentanyl 可能要 10mg+。">
+  <span class="slide-tag">14 ／ 第二招 · Toxidrome 4/5</span>
+  <span class="source-tag">EMCrit · Opioid</span>
+  <div class="tox-detail">
+    <figure class="case-figure">
+      <img src="img/01-park-coma.png" alt="鴉片" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">Opioid</div><div class="fb-sub">鴉片</div></div>
+      <figcaption>VISUAL ARCHETYPE №04</figcaption>
+    </figure>
+    <div class="tox-card calm">
+      <div class="tox-no">TOXIDROME №04 ／ 5</div>
+      <h2>鴉片</h2>
+      <div class="english">Opioid</div>
+      <div class="row"><span class="k">代表毒物</span><span class="v">Heroin、<strong>Fentanyl</strong>、Carfentanyl、Oxycodone、Buprenorphine、Tramadol、Methadone</span></div>
+      <div class="row"><span class="k">機轉</span><span class="v">μ 受體促效 → 呼吸 drive、意識、瞳孔同步抑制</span></div>
+      <div class="row"><span class="k">表現</span><span class="v">↓ <strong>HR / BP / RR / T</strong>、瞳孔<strong>針尖</strong>、皮膚濕冷、昏睡</span></div>
+      <div class="row"><span class="k">三 P</span><span class="v"><strong>P</strong>inpoint pupils · <strong>P</strong>in marks · <strong>P</strong>ressed RR</span></div>
+      <div class="row"><span class="k">處置</span><span class="v">Naloxone <strong>0.04–0.4 mg IV</strong> titrate → RR &gt; 10（別 2 mg 一次推）</span></div>
+      <div class="row"><span class="k">陷阱</span><span class="v">Fentanyl/Carfentanyl 累積劑量可能<strong>需 10 mg+</strong>；長效鴉片需 redose</span></div>
+      <p class="quip">「被睡神綁架的針孔人，鑰匙叫 Naloxone。」<br><span style="font-size:1.35rem;color:var(--ink-faint);font-style:normal;font-family:'Noto Sans TC';display:block;margin-top:.5rem">☞ Naloxone 一次推 2mg = 把睡美人直接踹醒，她會吐你一身 + 戒斷躁動 + 罵你 ××。慢慢來。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 15 鎮靜 -->
+<section class="slide" data-notes="Sedative-hypnotic。BZD, barbiturates, ethanol, GHB, zolpidem, baclofen。Flumazenil 多重藥物中毒禁用——可能誘發 TCA 引發的抽搐。">
+  <span class="slide-tag">15 ／ 第二招 · Toxidrome 5/5</span>
+  <span class="source-tag">EMCrit · Sedative-hypnotic</span>
+  <div class="tox-detail">
+    <figure class="case-figure">
+      <img src="img/06-heartbroken-girl.png" alt="鎮靜安眠" onerror="this.style.display='none'">
+      <div class="img-fallback"><div class="fb-icon">◐</div><div class="fb-title">Sedative</div><div class="fb-sub">鎮靜安眠</div></div>
+      <figcaption>VISUAL ARCHETYPE №05</figcaption>
+    </figure>
+    <div class="tox-card calm">
+      <div class="tox-no">TOXIDROME №05 ／ 5</div>
+      <h2>鎮靜安眠</h2>
+      <div class="english">Sedative-hypnotic</div>
+      <div class="row"><span class="k">代表毒物</span><span class="v">BZD（diazepam、lorazepam、alprazolam）、<strong>Barbiturates</strong>、Ethanol、GHB、Zolpidem、Baclofen</span></div>
+      <div class="row"><span class="k">機轉</span><span class="v">GABA-A 受體強化 → 中樞抑制</span></div>
+      <div class="row"><span class="k">表現</span><span class="v">↓ HR / BP / RR、瞳孔<strong>多正常</strong>或小、皮膚正常、深睡</span></div>
+      <div class="row"><span class="k">與鴉片差別</span><span class="v">瞳孔<strong>不一定針尖</strong>、皮膚乾、無針孔、RR 抑制較淺</span></div>
+      <div class="row"><span class="k">處置</span><span class="v">支持性療法：airway、fluid、保溫。多數會自己代謝</span></div>
+      <div class="row"><span class="k">陷阱</span><span class="v"><strong>Flumazenil 多重藥物中毒禁用</strong>——可能誘發 TCA 引發的抽搐</span></div>
+      <p class="quip">「就是睡到不行——但不要反射性叫醒她。」<br><span style="font-size:1.35rem;color:var(--ink-faint);font-style:normal;font-family:'Noto Sans TC';display:block;margin-top:.5rem">☞ Flumazenil 在多重中毒 = 把人從 BZD 的安全屋拉出來，丟到 TCA 火坑。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 16 三秒分辨 -->
+<section class="slide" data-notes="Toxidrome 快速分辨流程。三秒可走完。建議學員背下這套 decision tree。">
+  <span class="slide-tag">16 ／ 第二招 · 速判流程</span>
+  <span class="source-tag">護理師 3 秒分辨流程</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">3-second decision tree</span>
+  <h2 style="margin-bottom:1rem">三秒分辨 — <em style="color:var(--peach);font-style:italic">兩個分支</em>就夠</h2>
+  <div class="pill-grid">
+    <div class="pill">
+      <div class="word">瞳孔散大時</div>
+      <div class="expand">→ <b>摸皮膚</b><br><br>　濕汗 → <b style="color:var(--stamp)">交感興奮</b><br>　乾紅 → <b style="color:var(--ink)">抗膽鹼</b><br><br>　顫抖 + 陣攣 → 想想 <b>血清素症候群</b><br>　僵硬 → 想想 <b>NMS</b><span class="quip">兩者都瞳孔張大，差別只在「他流汗嗎？」——比 Tinder 還簡單。</span></div>
+    </div>
+    <div class="pill">
+      <div class="word">瞳孔針尖時</div>
+      <div class="expand">→ <b>看分泌</b><br><br>　沒口水 + 慢 RR → <b style="color:var(--teal)">鴉片</b><br>　大量分泌 + 束顫 → <b style="color:var(--stamp)">膽鹼性</b><br><br>　Clonidine、Phenothiazine 也針尖<br>　Pontine bleed 別漏<span class="quip">瞳孔像門牌、皮膚像玄關——進屋之前先看清楚。</span></div>
+    </div>
+  </div>
+  <p style="margin-top:1.2rem;font-size:1.55rem;color:var(--ink);background:var(--paper);border-left:4px solid var(--peach);padding:1rem 1.4rem;font-style:italic">
+    口訣：「<strong>散瞳分汗、針尖分水</strong>」。其他不確定，先當 sedative-hypnotic 支持治療。
+  </p>
+</section>
+
+<!-- 17 §3 CHAPTER -->
+<section class="slide chapter" data-notes="第三招章節。EMCrit 強調 PE 是 toxidrome 識別主軸。Lab 是補強。尿液 tox 有 trap。">
+  <span class="slide-tag">17 ／ 第三招</span>
+  <div class="chap-no">CHAPTER №03 ／ 10 MIN</div>
+  <h1>身體會說<br>的<em>暗號</em>。</h1>
+  <p class="chap-sub">瞳孔 · 皮膚 · 肌張力 · ECG · 實驗室<br>—— 護理師能在 5 秒抓到的線索。</p>
+  <div class="chap-meta">
+    <span>核心觀念<strong>細節分辨毒物</strong></span>
+    <span>含<strong>尿液 tox 假陽性陷阱</strong></span>
+  </div>
+</section>
+
+<!-- 18 PE 速查 -->
+<section class="slide" data-notes="PE 速查表。瞳孔很 specific——pinpoint 幾乎只有 opioid/cholinergic/clonidine/pontine bleed。散瞳分汗。">
+  <span class="slide-tag">18 ／ 第三招 · PE 速查</span>
+  <span class="source-tag">EMCrit · Physical exam</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Pupils, skin, tone</span>
+  <h2 style="margin-bottom:1rem">三秒抓 red flag</h2>
+  <div class="pill-grid three">
+    <div class="pill">
+      <div class="word">👁　瞳孔</div>
+      <div class="expand"><b>針尖</b>：Opioid · Cholinergic · Clonidine · Pontine bleed<br><br><b>散大</b>：Sympathomimetic · Anticholinergic<br>　→ 看皮膚：<b>濕→交感、乾→抗膽鹼</b><br><br><b>不對稱</b>：結構性問題（中風／出血／疝）<span class="quip">大小不一 → 別當中毒，去 CT，可能在出血。</span></div>
+    </div>
+    <div class="pill">
+      <div class="word">✋　皮膚</div>
+      <div class="expand"><b>潮濕</b>：交感、膽鹼、Salicylate、低血糖<br><br><b>乾燥</b>：抗膽鹼<br><br><b>紅熱</b>：抗膽鹼、Niacin、Vancomycin、CO<br><br><b>濕冷</b>：Opioid、休克、低血糖<span class="quip">紅得有理由——不是中毒就是過敏，沒人「無緣無故」變番茄。</span></div>
+    </div>
+    <div class="pill">
+      <div class="word">💪　肌張力</div>
+      <div class="expand"><b>顫抖 / 陣攣</b>：血清素症候群、Lithium、Sympathomimetic<br><br><b>僵硬</b>：NMS、Strychnine、Malignant Hyperthermia<br><br><b>束顫</b>：有機磷<br><br><b>鬆軟</b>：BZD、Opioid、酒精<span class="quip">束顫 = 肌肉在跳沒節奏的舞，是有機磷的招牌動作。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 ECG 三大暗號 -->
+<section class="slide" data-notes="ECG 三大暗號。EMCrit 強調 serial ECG。護理師不用判讀，認三個 pattern 立刻叫醫師。">
+  <span class="slide-tag">19 ／ 第三招 · ECG</span>
+  <span class="source-tag">EMCrit · ECG patterns</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">3 ECG patterns that scream</span>
+  <h2 style="margin-bottom:.6rem">ECG 三大暗號</h2>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:.8rem">☞ QRS 寬 = 心臟在拖延　·　QT 長 = 心臟在猶豫　·　慢心律 = 心臟在罷工</p>
+  <table class="tox-table">
+    <thead><tr><th>ECG Pattern</th><th>常見毒物</th><th>處置</th></tr></thead>
+    <tbody>
+      <tr><td>QRS &gt; 100 ms<span class="sub">（變寬）</span></td><td>TCA、Cocaine、Diphenhydramine、Bupropion、Class I 抗心律不整藥</td><td><strong>Sodium Bicarbonate</strong><span class="sub">1–2 mEq/kg IV bolus</span></td></tr>
+      <tr><td>QTc &gt; 500 ms<span class="sub">（變長）</span></td><td>抗精神病、Methadone、Ondansetron、Sotalol、Citalopram</td><td><strong>Mg + K 補足</strong><span class="sub">停藥、注意 Torsades</span></td></tr>
+      <tr><td>慢心律 + AV block</td><td>Digoxin、β-blocker、CCB（Verapamil/Diltiazem）</td><td>Dig-Fab ／ Glucagon ／<strong>高劑量胰島素</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:1rem;font-size:1.55rem;color:var(--ink);background:var(--paper);border-left:4px solid var(--peach);padding:1rem 1.4rem;font-style:italic">
+    EMCrit 建議：早期中毒病人<strong>連續 ECG</strong>。心臟毒性可能延後幾小時才出現。
+  </p>
+</section>
+
+<!-- 20 Na 通道阻斷 ECG (含圖) -->
+<section class="slide" data-notes="EMCrit Na 通道阻斷 ECG signature 四個指紋。圖片是 TCA overdose 典型 ECG。指 aVR 那個翹尾巴的 R 波（terminal R）是最具特異性。給 NaHCO3 後 QRS 變窄 = 確診儀式。">
+  <span class="slide-tag">20 ／ 第三招 · Na 通道阻斷 ECG</span>
+  <span class="source-tag">EMCrit · Sodium channel blockade</span>
+  <h2 style="margin-bottom:.4rem">鈉通道阻斷 — 4 個 <em style="color:var(--peach);font-style:italic">指紋</em></h2>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:.6rem">☞ aVR 那個翹尾巴的小 R 波，是 TCA 留下的指紋——比 DNA 還準。</p>
+
+  <figure class="ecg-figure">
+    <img src="img/07-tca-ecg.png" alt="TCA 中毒典型 12-lead ECG" onerror="this.style.display='none'">
+    <div class="ecg-fallback">⚡<br>TCA Overdose ECG<br><span style="font-size:1.45rem;font-family:JetBrains Mono;letter-spacing:.15em;text-transform:uppercase">AI 圖像 ／ 待生成</span></div>
+    <figcaption>TCA 過量典型 ECG · 寬 QRS + aVR 終端 R 波 + 竇性頻脈</figcaption>
+  </figure>
+
+  <div class="ecg-feature-strip">
+    <div class="ecg-feat"><span class="num">①</span><strong>Lead I 終端 S 波</strong><span class="sub">QRS 結尾多一個下垂小尾巴</span></div>
+    <div class="ecg-feat"><span class="num">②</span><strong>aVR 終端 R &gt; 3 mm</strong><span class="sub">最具特異性 · R/S &gt; 0.7</span></div>
+    <div class="ecg-feat"><span class="num">③</span><strong>V1 RSR' pattern</strong><span class="sub">類 RBBB · 偶 Brugada-like</span></div>
+    <div class="ecg-feat"><span class="num">④</span><strong>QTc 延長</strong><span class="sub">續發 K 通道阻斷</span></div>
+  </div>
+
+  <p class="ecg-confirm">
+    <strong>確診儀式：</strong>給 <strong>NaHCO₃ 1–2 mEq/kg IV bolus</strong>，看 QRS 是否變窄。<strong>變窄 = 確診</strong>，繼續輸注到 QRS &lt; 100 ms + pH 7.45–7.55。
+    <em>☞ 比抽血等三天快。</em>
+  </p>
+</section>
+
+<!-- 21 Lab panel -->
+<section class="slide" data-notes="EMCrit 核心 lab。每個 OD 都驗 APAP + salicylate（隱形殺手）。Pregnancy test 必驗。">
+  <span class="slide-tag">21 ／ 第三招 · 實驗室</span>
+  <span class="source-tag">EMCrit · Laboratory panel</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Initial labs</span>
+  <h2 style="margin-bottom:1rem">實驗室<em style="color:var(--peach);font-style:italic">核心面板</em></h2>
+  <div class="lesson-grid">
+    <div>
+      <h3 style="font-size:1.85rem;color:var(--peach);margin-bottom:.6rem">必驗 (Core)</h3>
+      <ul class="action-list">
+        <li><span class="tag">驗</span><div class="body">Fingerstick <strong>葡萄糖</strong>　·　永遠先驗<span class="sub">低血糖是免費的解毒劑——D50W 50ml 就見效。</span></div></li>
+        <li><span class="tag">驗</span><div class="body">電解質（含 <strong>Ca / Mg / Phos</strong>）</div></li>
+        <li><span class="tag">驗</span><div class="body">肝功能（LFT）　·　<strong>Lactate</strong><span class="sub">Lactate = 代謝崩潰指標。&gt;4 mmol/L 要警覺。</span></div></li>
+        <li><span class="tag warn">必</span><div class="body"><strong>Acetaminophen + Salicylate level</strong>　·　每個 OD 都驗<span class="quip">這兩個是隱形殺手——跟前任的暗示一樣，沒驗就漏掉。</span></div></li>
+        <li><span class="tag">驗</span><div class="body"><strong>懷孕測試</strong>（育齡女性必驗）<span class="quip">不問清楚會兩條人命，這不是補修課可以挽回的。</span></div></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:1.85rem;color:var(--peach);margin-bottom:.6rem">情境加驗 (Optional)</h3>
+      <ul class="action-list">
+        <li><span class="tag note">看</span><div class="body"><strong>CK</strong> · 橫紋肌懷疑（躁動／約束／高體溫者）</div></li>
+        <li><span class="tag note">看</span><div class="body"><strong>Ethanol level</strong> · 酒味病人</div></li>
+        <li><span class="tag note">看</span><div class="body"><strong>Carboxyhemoglobin</strong>（CO，靜脈血即可）</div></li>
+        <li><span class="tag note">看</span><div class="body">藥物濃度：Carbamazepine · Digoxin · Lithium · Methotrexate · Phenobarbital · Phenytoin · Theophylline · Valproate · Warfarin/INR · DOAC</div></li>
+        <li><span class="tag warn">算</span><div class="body"><strong>Anion gap</strong> + <strong>Osmolar gap</strong>（甲醇、乙二醇別漏）</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 22 尿液假陽性 -->
+<section class="slide" data-notes="EMCrit 完整列尿液 tox 假陽性。重點：日常處方藥就會跳陽性。陽性≠中毒。">
+  <span class="slide-tag">22 ／ 第三招 · 尿液 tox · 假陽性</span>
+  <span class="source-tag">EMCrit · Urine tox false positives</span>
+  <span class="micro" style="display:block;margin-bottom:.4rem">⚠ False positives</span>
+  <h2 style="margin-bottom:.5rem">尿液 tox <em style="color:var(--peach);font-style:italic">假陽性</em>陷阱</h2>
+  <p style="font-size:1.5rem;color:var(--ink-soft);margin-bottom:.6rem">日常處方藥就會讓 urine tox 跳出毒品陽性——<strong style="color:var(--stamp)">陽性 ≠ 中毒</strong>。</p>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:1rem">☞ Bupropion 讓 amphetamine 跳陽性——所以吃抗憂鬱藥的人可能被當成毒蟲。罌粟籽麵包也會中槍。</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.2rem">
+    <div class="urine-row"><div class="drug">Amphetamine</div><div class="causes"><strong>Bupropion</strong>、Pseudoephedrine、Labetalol、Trazodone、Metformin、Ranitidine、Selegiline、Atomoxetine、Methylphenidate</div></div>
+    <div class="urine-row"><div class="drug">Opioids</div><div class="causes"><strong>Dextromethorphan</strong>、Diphenhydramine、Fluoroquinolones、<strong>Poppy seeds</strong>（罌粟籽麵包！）、Quinine、Rifampin、Verapamil</div></div>
+    <div class="urine-row"><div class="drug">PCP</div><div class="causes">Dextromethorphan、Diphenhydramine、Ketamine、Tramadol、<strong>Venlafaxine</strong>、Ibuprofen、Lamotrigine、合成卡西酮</div></div>
+    <div class="urine-row"><div class="drug">LSD</div><div class="causes"><strong>Sertraline</strong>、Bupropion、Fluoxetine、Haloperidol、Risperidone、Trazodone、Verapamil、Fentanyl</div></div>
+    <div class="urine-row"><div class="drug">THC（大麻）</div><div class="causes"><strong>NSAIDs</strong>、Pantoprazole（PPI）、Efavirenz、Dronabinol、含麻食品</div></div>
+    <div class="urine-row"><div class="drug">TCA</div><div class="causes"><strong>Diphenhydramine</strong>、<strong>Carbamazepine</strong>、Cyclobenzaprine、Cyproheptadine、Hydroxyzine、Quetiapine、Cetirizine</div></div>
+    <div class="urine-row"><div class="drug">BZD</div><div class="causes">Efavirenz、Oxaprozin、Sertraline</div></div>
+    <div class="urine-row"><div class="drug">Methadone</div><div class="causes"><strong>Diphenhydramine</strong>、Doxylamine、Quetiapine、Verapamil、Tapentadol</div></div>
+  </div>
+</section>
+
+<!-- 23 尿液假陰性 -->
+<section class="slide" data-notes="EMCrit 強調 false negative 比 false positive 更危險。BZD 驗不到最常處方的 lorazepam/alprazolam/clonazepam。Opioid 驗不到 fentanyl, oxycodone。">
+  <span class="slide-tag">23 ／ 第三招 · 尿液 tox · 假陰性</span>
+  <span class="source-tag">EMCrit · Urine tox false negatives</span>
+  <span class="micro" style="display:block;margin-bottom:.4rem">⚠ False negatives — 比假陽性還危險</span>
+  <h2 style="margin-bottom:.5rem">尿液 tox <em style="color:var(--peach);font-style:italic">假陰性</em>陷阱</h2>
+  <p style="font-size:1.5rem;color:var(--ink-soft);margin-bottom:.6rem">這些「驗不到」的，剛好是台灣最常處方／最致命的——<strong style="color:var(--stamp)">陰性 ≠ 沒中毒</strong>。</p>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:.8rem">☞ Fentanyl 在 urine tox 像隱形人——你看不到它，但它能殺你。</p>
+  <div class="urine-row warn">
+    <div class="drug">BZD<br><span style="font-size:1.3rem;font-weight:400;color:var(--ink-faint);font-family:JetBrains Mono">最常處方</span></div>
+    <div class="causes"><strong>驗不到 Lorazepam、Alprazolam（Xanax）、Clonazepam</strong>——台灣 ED/ICU 最常開的三個 BZD 都會 miss。<br>傳統 BZD 篩驗測 oxazepam 衍生物，這三個不走這條代謝路徑。<span style="display:block;margin-top:.3rem;color:var(--peach);font-size:1.3rem;font-style:italic">☞ 等於用 Google 翻譯查不到 90% 常見詞彙。</span></div>
+  </div>
+  <div class="urine-row warn">
+    <div class="drug">Opioids<br><span style="font-size:1.3rem;font-weight:400;color:var(--ink-faint);font-family:JetBrains Mono">致命漏網</span></div>
+    <div class="causes"><strong>驗不到 Fentanyl、Carfentanyl、Oxycodone、Buprenorphine</strong>。<br>Hydrocodone、Hydromorphone 反應差。<br>典型篩驗只認 morphine／codeine 結構——新型合成鴉片全漏。<span style="display:block;margin-top:.3rem;color:var(--peach);font-size:1.3rem;font-style:italic">☞ Fentanyl 比海洛因強 100 倍，卻在尿裡像不存在。</span></div>
+  </div>
+  <div class="urine-row">
+    <div class="drug">Amphetamines</div>
+    <div class="causes">部分娛樂用甲基安非他命衍生物偵測差。新型合成卡西酮（浴鹽）<strong>幾乎全部測不到</strong>。</div>
+  </div>
+  <div class="urine-row">
+    <div class="drug">Cocaine</div>
+    <div class="causes">測的是 <strong>benzoylecgonine</strong>（代謝物），用藥後幾天就消失。</div>
+  </div>
+  <p style="margin-top:.8rem;font-size:1.5rem;color:var(--ink);background:var(--paper);border-left:4px solid var(--stamp);padding:.85rem 1.3rem;font-style:italic">
+    結論：urine tox 是<strong>輔助</strong>，不是主要決策。臨床 gestalt（toxidrome + vitals + ECG）優先。
+  </p>
+</section>
+
+<!-- 24 §4 CHAPTER -->
+<section class="slide chapter" data-notes="第四招。EMCrit 反對 GCS<8 自動插管。決策應綜合多因素。">
+  <span class="slide-tag">24 ／ 第四招</span>
+  <div class="chap-no">CHAPTER №04 ／ 8 MIN</div>
+  <h1>解毒劑<br>與<em>淨化</em>。</h1>
+  <p class="chap-sub">擋下 · 清掉 · 解掉 · 評估氣道<br>—— 別把過時的常規當教條。</p>
+  <div class="chap-meta">
+    <span>核心觀念<strong>適應症優先於常規</strong></span>
+    <span>EMCrit<strong>反對 GCS&lt;8 自動插管</strong></span>
+  </div>
+</section>
+
+<!-- 25 氣道 -->
+<section class="slide" data-notes="EMCrit 反 GCS<8 dogma。Gag reflex 不可靠。先試 glucose/naloxone/physostigmine 三抗解。">
+  <span class="slide-tag">25 ／ 第四招 · 氣道</span>
+  <span class="source-tag">EMCrit · Airway management</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">GCS &lt; 8 是個迷思</span>
+  <h2 style="margin-bottom:.4rem">氣道評估 — <em style="color:var(--peach);font-style:italic">先試抗解再插管</em></h2>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:.8rem">☞ 「GCS &lt; 8 就插管」是醫學界的「分手要分清」——聽起來合理，做起來看狀況。</p>
+  <div class="lesson-grid skew">
+    <div>
+      <p style="font-size:1.55rem;line-height:1.7;margin-bottom:1rem"><strong>EMCrit 明確指出：</strong>GCS &lt; 8 自動插管的 dogma 是<strong style="color:var(--stamp)">錯的</strong>。中毒病人決策要綜合判斷。</p>
+      <p class="callout" style="font-size:1.5rem">Gag reflex <strong>不可靠</strong>。要看：<br>① 吞嚥反射　② 分泌物有沒有累積　③ 咳嗽是否有力</p>
+      <p style="margin-top:.7rem;color:var(--peach);font-size:1.35rem;font-style:italic">☞ 戳他喉嚨他乾嘔，不代表他能保住氣道。能不能咳痰才是真功夫。</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.75rem;margin-bottom:.4rem">先試三個抗解（可能省下插管）</h3>
+      <ul class="action-list">
+        <li><span class="tag calm">①</span><div class="body"><strong>Glucose D50W 50 mL</strong> · 先驗血糖再給<span class="sub">低血糖是免費解毒劑——比 Naloxone 還便宜。</span></div></li>
+        <li><span class="tag calm">②</span><div class="body"><strong>Naloxone 0.04–0.4 mg IV titrate</strong> · opioid 懷疑者<span class="sub">可能瞬間清醒——病人會起來罵你，這是好事。</span></div></li>
+        <li><span class="tag calm">③</span><div class="body"><strong>Physostigmine 0.5–2 mg IV slow</strong><span class="sub" style="color:var(--stamp)">純抗膽鹼才用，TCA 禁忌！否則會誘發抽搐+心搏停止。</span></div></li>
+      </ul>
+      <p style="margin-top:.8rem;font-size:1.4rem;color:var(--ink-faint);font-style:italic">這三個試完還是 unresponsive，再考慮插管。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 26 活性碳 -->
+<section class="slide" data-notes="EMCrit 活性碳 detail：1g/kg, 25-100g。4 個 yes 才給。不吸附與特別有效清單。">
+  <span class="slide-tag">26 ／ 第四招 · 活性碳</span>
+  <span class="source-tag">EMCrit · Single-dose charcoal</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Single-dose activated charcoal</span>
+  <h2 style="margin-bottom:.4rem">活性碳 — <em style="color:var(--peach);font-style:italic">擋下</em></h2>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:.6rem">☞ 活性碳對酒精無效——所以宿醉時別吞炭，只會拉黑色屎還浪費錢。</p>
+  <div class="lesson-grid">
+    <div>
+      <h3 style="font-size:1.75rem;margin-bottom:.4rem">給藥條件（4 個 yes 才給）</h3>
+      <ul class="bullet-list">
+        <li>吞下 <strong>&lt; 1–2 小時內</strong>　<span class="sub">緩釋／拖延胃排空者可延長</span></li>
+        <li>氣道能保護　<span class="sub">清醒，或已插管</span></li>
+        <li>沒有 <strong>GI 阻塞</strong></li>
+        <li>已知毒物是<strong>會被活性碳吸附</strong>的</li>
+      </ul>
+      <p style="margin-top:1rem;font-size:1.55rem;color:var(--ink);background:var(--paper);border-left:4px solid var(--peach);padding:.9rem 1.3rem">
+        劑量：<strong>1 g/kg（25–100 g）</strong>　·　毒物：碳 = 1：10　·　封頂 ~100 g<br>
+        <span style="font-size:1.35rem;color:var(--peach);font-style:italic;display:block;margin-top:.3rem">☞ 100 g = 五大碗炭粉。病人會恨你，但會活下來。</span>
+      </p>
+    </div>
+    <div>
+      <h3 style="font-size:1.75rem;margin-bottom:.4rem;color:var(--stamp)">不吸附（給也沒用）</h3>
+      <p style="font-size:1.5rem;line-height:1.7;margin-bottom:1rem">酒精類、Hydrocarbon、<strong>有機磷</strong>、Carbamate、強酸／強鹼、鉀、<strong>鐵</strong>、<strong>鋰</strong>、氰化物、氟化物</p>
+      <p style="font-size:1.35rem;color:var(--ink-faint);font-style:italic;margin-bottom:1rem">☞ 口訣：「無機物（金屬離子）+ 小分子液體」活性碳沒轍。</p>
+      <h3 style="font-size:1.75rem;margin-bottom:.4rem;color:var(--teal)">特別有效</h3>
+      <p style="font-size:1.5rem;line-height:1.7">Barbiturate、<strong>Carbamazepine</strong>、Dapsone、Glutethimide、Paraquat、Quinine、<strong>Theophylline</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 27 MDAC / WBI -->
+<section class="slide" data-notes="MDAC + WBI。MDAC 適應七毒。WBI 適應緩釋／重金屬／鐵／鋰。">
+  <span class="slide-tag">27 ／ 第四招 · MDAC / WBI</span>
+  <span class="source-tag">EMCrit · MDAC + WBI</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Multiple-dose & whole bowel irrigation</span>
+  <h2 style="margin-bottom:1rem">進階淨化 — <em style="color:var(--peach);font-style:italic">清掉</em></h2>
+  <div class="lesson-grid">
+    <div>
+      <h3 style="font-size:1.75rem;margin-bottom:.4rem;color:var(--peach)">多劑活性碳 (MDAC)</h3>
+      <p style="font-size:1.5rem;line-height:1.65;margin-bottom:.7rem"><strong>適應症（七毒）：</strong>Amatoxin（毒蕈）、<strong>Carbamazepine</strong>、Colchicine、Dapsone、Phenobarbital、Quinine、<strong>Theophylline</strong></p>
+      <p style="font-size:1.5rem;line-height:1.65;margin-bottom:.7rem"><strong>劑量：</strong>Loading 1 g/kg（50–100 g） · Maintenance <strong>50 g q4hr</strong></p>
+      <p style="font-size:1.35rem;color:var(--peach);font-style:italic;line-height:1.55">☞ 這七個有腸肝循環，活性碳像門口的保鑣，藥物每次想回血都被攔截。</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.75rem;margin-bottom:.4rem;color:var(--peach)">全腸沖洗 (WBI)</h3>
+      <ul class="bullet-list">
+        <li><strong>緩釋／長效劑型</strong>（特別 Bupropion XR）</li>
+        <li><strong>鐵、鋰</strong>、重金屬</li>
+        <li>毒品 body packer / stuffer</li>
+      </ul>
+      <p style="font-size:1.5rem;line-height:1.65;margin-top:.6rem"><strong>技術：</strong>NG / OG 灌 PEG (GoLytely) <strong>1.5–2 L/hr</strong>，至 effluent 清澈為止。嘔吐就降速。</p>
+      <p style="font-size:1.35rem;color:var(--peach);font-style:italic;margin-top:.4rem">☞ 從上灌到下、看清水流出——像幫病人做大腸鏡前的準備，沖到「金黃變透明」。</p>
+      <p style="font-size:1.4rem;color:var(--stamp);font-style:italic;margin-top:.4rem">禁忌：腸阻塞 ／ ileus ／ 血流動力學不穩</p>
+    </div>
+  </div>
+</section>
+
+<!-- 28 解毒劑速查 -->
+<section class="slide" data-notes="解毒劑速查表。Flumazenil 多重藥物中毒禁用。INH → Pyridoxine 5g。">
+  <span class="slide-tag">28 ／ 第四招 · 解毒劑</span>
+  <span class="source-tag">Antidote cheat sheet</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">Antidotes — 解掉</span>
+  <h2 style="margin-bottom:.4rem">解毒劑速查表</h2>
+  <p style="font-size:1.4rem;color:var(--peach);font-style:italic;margin-bottom:.8rem">☞ 前面幾個是床邊隨時要有的——像護理師的瑞士刀。</p>
+  <div class="antidote">
+    <div class="antidote-row"><span class="poison">Opioid</span><span class="arrow">→</span><span class="cure">Naloxone titrate</span></div>
+    <div class="antidote-row"><span class="poison">低血糖</span><span class="arrow">→</span><span class="cure">D50W ／ 升糖素</span></div>
+    <div class="antidote-row"><span class="poison">TCA<br><span style="font-size:1.35rem;color:var(--ink-faint);font-weight:400">（寬 QRS）</span></span><span class="arrow">→</span><span class="cure">Sodium Bicarbonate</span></div>
+    <div class="antidote-row"><span class="poison">有機磷</span><span class="arrow">→</span><span class="cure">Atropine + 2-PAM</span></div>
+    <div class="antidote-row"><span class="poison">Acetaminophen</span><span class="arrow">→</span><span class="cure">N-Acetylcysteine</span></div>
+    <div class="antidote-row"><span class="poison">β-blocker / CCB</span><span class="arrow">→</span><span class="cure">高劑量胰島素 + Ca</span></div>
+    <div class="antidote-row"><span class="poison">Digoxin</span><span class="arrow">→</span><span class="cure">Digoxin Fab</span></div>
+    <div class="antidote-row"><span class="poison">INH / 鹿花蕈</span><span class="arrow">→</span><span class="cure">Pyridoxine 5 g IV</span></div>
+    <div class="antidote-row"><span class="poison">Methemoglobinemia</span><span class="arrow">→</span><span class="cure">Methylene Blue</span></div>
+    <div class="antidote-row"><span class="poison">純抗膽鹼<br><span style="font-size:1.35rem;color:var(--ink-faint);font-weight:400">非 TCA</span></span><span class="arrow">→</span><span class="cure">Physostigmine</span></div>
+    <div class="antidote-row"><span class="poison">CO 中毒</span><span class="arrow">→</span><span class="cure">100% O₂ ／ 高壓氧</span></div>
+    <div class="antidote-row" style="border:2px solid var(--stamp);grid-column:span 2"><span class="poison" style="color:var(--stamp)">BZD ＋ 多重藥物中毒</span><span class="arrow" style="color:var(--stamp)">⊘</span><span class="cure">Flumazenil <strong style="color:var(--stamp)">禁用</strong>　·　可能誘發 TCA 引發的抽搐</span></div>
+  </div>
+</section>
+
+<!-- 29 §5 CHAPTER -->
+<section class="slide chapter" data-notes="第五招。中毒病人多半死於這四個併發症，不是毒物本身。">
+  <span class="slide-tag">29 ／ 第五招</span>
+  <div class="chap-no">CHAPTER №05 ／ 12 MIN</div>
+  <h1><em>四大</em>致命併發症</h1>
+  <p class="chap-sub">抽搐 · 躁動 · 高體溫 · 心律不整<br>—— 中毒病人不是死於毒，是死於這四個。</p>
+  <div class="chap-meta">
+    <span>核心觀念<strong>對症處理 = 救命</strong></span>
+    <span>各 3 分鐘<strong>逐一拆解</strong></span>
+  </div>
+</section>
+
+<!-- 30 抽搐 -->
+<section class="slide" data-notes="抽搐：Lorazepam 0.1mg/kg or Midazolam 10mg first-line。Phenytoin 禁用（class Ib 加重 Na block）。INH/Gyromitra → Pyridoxine 5g。">
+  <span class="slide-tag">30 ／ 致命併發症 №1</span>
+  <span class="source-tag">EMCrit · Seizures</span>
+  <div class="fatal-slide">
+    <div class="fatal-big">
+      <div class="num">№ 01 ／ 4 OF 4</div>
+      <div class="glyph">⚡</div>
+      <h2>抽搐</h2>
+      <p class="tagline">Toxic Seizures</p>
+    </div>
+    <div class="fatal-body">
+      <h3>常見毒物</h3>
+      <p class="summary">Bupropion、Citalopram、TCA、Venlafaxine、Lithium、Na channel blockers、Sympathomimetics、Tramadol、Salicylate、戒斷、Methylxanthines（咖啡因、Theophylline）、<strong>INH、Gyromitra 鹿花蕈</strong></p>
+      <h3>處置</h3>
+      <ul class="action-list">
+        <li><span class="tag">第一線</span><div class="body"><strong>Lorazepam 0.1 mg/kg IV</strong>　或　<strong>Midazolam 10 mg IV/IM</strong><span class="quip">BZD 是抽搐界的標準答案，跟「多喝水」一樣百搭。</span></div></li>
+        <li><span class="tag">同時</span><div class="body">糾正低血糖、低鈉（hypertonic NaHCO₃ 100 mEq）</div></li>
+        <li><span class="tag">第二線</span><div class="body">Ketamine + Propofol induction → 插管 + Propofol 維持</div></li>
+        <li><span class="tag">維持</span><div class="body">Phenobarbital 15–18 mg/kg　／　Levetiracetam 也可<span class="sub">Phenobarbital 對戒斷雙重 cover。</span></div></li>
+        <li><span class="tag warn">禁忌</span><div class="body"><strong>Phenytoin 禁用</strong>——本身就是 class Ib，加重 Na channel block<span class="quip">拿汽油滅火。</span></div></li>
+        <li><span class="tag note">特殊</span><div class="body"><strong>INH / Gyromitra → Pyridoxine 5 g IV</strong>　·　Na block → NaHCO₃　·　Bupropion XR → WBI<span class="quip">INH 偷走你的 B6，你把 5 公克還它——以德報怨。</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 31 躁動 -->
+<section class="slide" data-notes="EMCrit 躁動：消除原因。抗膽鹼+膀胱脹→Foley。一般 sympathomimetic 處理：BZD。Haldol 在 stimulant 不是首選（QT）。">
+  <span class="slide-tag">31 ／ 致命併發症 №2</span>
+  <span class="source-tag">EMCrit · Agitation</span>
+  <div class="fatal-slide">
+    <div class="fatal-big">
+      <div class="num">№ 02 ／ 4 OF 4</div>
+      <div class="glyph">⚠</div>
+      <h2>躁動</h2>
+      <p class="tagline">Toxic Agitation</p>
+    </div>
+    <div class="fatal-body">
+      <h3>為什麼會死人？</h3>
+      <p class="summary">躁動 → 肌肉狂收縮 → <strong>橫紋肌溶解 + 高體溫 + 代謝酸中毒</strong> → 心律不整 / 心搏停止</p>
+      <h3>處置原則（EMCrit）</h3>
+      <ul class="action-list">
+        <li><span class="tag">①</span><div class="body"><strong>消除原因永遠優先</strong>：抗膽鹼+膀胱脹 → <strong>Foley</strong>　·　Trauma → 止痛　·　<strong>輕度躁動 → 提供食物或飲料</strong>（EMCrit 原文 "providing food may be helpful"）<span class="quip">膀胱漲起來人就脾氣大，導尿一下世界和平；嘴巴有事做，焦慮自動退散。</span></div></li>
+        <li><span class="tag">②</span><div class="body">不分原因時，依 <strong>sympathomimetic 處理</strong>：BZD 首選</div></li>
+        <li><span class="tag">藥</span><div class="body"><strong>BZD</strong>：Diazepam 5–10 mg IV q5min　·　Lorazepam 2 mg q10min</div></li>
+        <li><span class="tag warn">小心</span><div class="body">Haldol／Olanzapine 會延長 QT，在 stimulant 中毒<strong>不是首選</strong></div></li>
+        <li><span class="tag note">順序</span><div class="body">先鎮靜再約束<span class="quip">只約束不鎮靜，等於把病人關進健身房逼他做 HIIT——橫紋肌會直接爆。</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 32 高體溫 -->
+<section class="slide" data-notes="EMCrit 高體溫：T > 40-41°C。退燒藥沒用。物理降溫五招。最嚴重 → 插管+depolarizing 肌松。">
+  <span class="slide-tag">32 ／ 致命併發症 №3</span>
+  <span class="source-tag">EMCrit · Hyperthermia</span>
+  <div class="fatal-slide">
+    <div class="fatal-big">
+      <div class="num">№ 03 ／ 4 OF 4</div>
+      <div class="glyph">🔥</div>
+      <h2>高體溫</h2>
+      <p class="tagline">Toxic Hyperthermia</p>
+    </div>
+    <div class="fatal-body">
+      <h3>致命門檻</h3>
+      <p class="summary">EMCrit：T &gt; <strong>40–41°C</strong>。促 seizure、rhabdo、肝衰。<strong style="color:var(--stamp)">退燒藥沒用</strong>（不是 setpoint 問題，是熱能過多）。<br><span style="color:var(--peach);font-style:italic;font-size:1.4rem">☞ 給普拿疼像在火災現場噴香水。</span></p>
+      <h3>物理降溫五招（EMCrit）</h3>
+      <ul class="action-list">
+        <li><span class="tag">①</span><div class="body"><strong>冷藏過的生理食鹽水</strong> IV 復甦</div></li>
+        <li><span class="tag">②</span><div class="body"><strong>蒸發冷卻</strong>：噴溫水 + 風扇</div></li>
+        <li><span class="tag">③</span><div class="body"><strong>冰袋</strong>：鼠蹊、腋下、頸部</div></li>
+        <li><span class="tag">④</span><div class="body"><strong>冰水浸泡</strong> ／ Ice packing 全身覆蓋</div></li>
+        <li><span class="tag warn">⑤</span><div class="body">最嚴重（seizure / coma）：<strong>插管 + 去極化肌松</strong>　+ 上述併用<span class="quip">把人關機重啟。</span></div></li>
+        <li><span class="tag note">特殊</span><div class="body">血清素症候群 → <strong>Cyproheptadine</strong>　·　NMS／MH → <strong>Dantrolene</strong></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 33 慢心律 -->
+<section class="slide" data-notes="EMCrit 慢心律：toxic bradycardia 對 ACLS refractory。Step 1: 是不是 dig。Step 2 不確定：empirically as BB/CCB。Hypoglycemia→BB；hyperglycemia→CCB。">
+  <span class="slide-tag">33 ／ 致命併發症 №4a</span>
+  <span class="source-tag">EMCrit · Bradycardia</span>
+  <div class="fatal-slide">
+    <div class="fatal-big">
+      <div class="num">№ 04a ／ 4 OF 4</div>
+      <div class="glyph">🐢</div>
+      <h2>慢心律</h2>
+      <p class="tagline">Toxic Bradycardia</p>
+    </div>
+    <div class="fatal-body">
+      <h3>EMCrit 重要提醒</h3>
+      <p class="summary">中毒性慢心律對<strong>標準 ACLS protocol 可能 refractory</strong>。Atropine、起搏可能無效，必須<strong>找原因治</strong>。<br><span style="color:var(--peach);font-style:italic;font-size:1.4rem">☞ ACLS 公式在這裡跳針——心臟不理你的 Atropine。</span></p>
+      <h3>兩步診斷</h3>
+      <ul class="action-list">
+        <li><span class="tag">①</span><div class="body"><strong>先想 Digoxin</strong>：ECG 看 dig effect（scoop ST）、history、植物心臟糖苷　→　<strong>Digoxin Fab</strong></div></li>
+        <li><span class="tag">②</span><div class="body">不確定時：<strong>empirically 當 β-blocker 或 CCB</strong> 治<span class="sub">低血糖暗示 BB　·　高血糖暗示 CCB</span></div></li>
+        <li><span class="tag note">藥</span><div class="body">BB → <strong>Glucagon 5–10 mg IV</strong>，之後輸注<br>BB／CCB → <strong>高劑量胰島素 1 U/kg bolus + 0.5–1 U/kg/hr</strong> + D10 + Ca</div></li>
+        <li><span class="tag calm">關鍵</span><div class="body">「BB vs CCB 不一定要分清，<strong>處置大致一樣</strong>」(EMCrit)<span class="quip">一招通殺，不必猜。</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 34 寬 QRS VT -->
+<section class="slide" data-notes="EMCrit 寬 QRS VT：先給 NaHCO3。避免 procainamide（更慘）和 amiodarone（QT 延長）。用 lidocaine + NaHCO3。">
+  <span class="slide-tag">34 ／ 致命併發症 №4b</span>
+  <span class="source-tag">EMCrit · Monomorphic VT</span>
+  <div class="fatal-slide">
+    <div class="fatal-big">
+      <div class="num">№ 04b ／ 4 OF 4</div>
+      <div class="glyph">⚡</div>
+      <h2>寬 QRS<br>心律不整</h2>
+      <p class="tagline">Monomorphic VT</p>
+    </div>
+    <div class="fatal-body">
+      <h3>EMCrit 處置邏輯</h3>
+      <ul class="action-list">
+        <li><span class="tag">①</span><div class="body">先給 <strong>NaHCO₃ 1–2 mEq/kg IV bolus</strong>。QRS <strong>變窄</strong> → 確診 Na channel block → 持續輸注</div></li>
+        <li><span class="tag warn">禁忌</span><div class="body"><strong>Procainamide 禁用</strong>——本身就是 Na block<span class="quip">對溺水的人潑水。請住手。</span></div></li>
+        <li><span class="tag warn">禁忌</span><div class="body"><strong>Amiodarone 禁用</strong>（在 QT 延長者）——進一步延長 QTc<span class="quip">對失火的家點蠟燭——氣氛是有了，房子也燒了。</span></div></li>
+        <li><span class="tag calm">可用</span><div class="body"><strong>Lidocaine</strong>——不影響 QT 不延長 QRS<span class="sub">中毒性心律不整的優等生。</span></div></li>
+        <li><span class="tag note">記</span><div class="body">低血鎂、低血鉀<strong>放大所有藥物毒性</strong>——先補</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 35 帶回家三件事 -->
+<section class="slide" data-notes="收尾三大 take-home。讓學員拍照。『今天上完，你不用記得所有毒物——這三句話帶回病房就會救到人。』">
+  <span class="slide-tag">35 ／ 總複習</span>
+  <span class="source-tag">Take home</span>
+  <span class="micro" style="display:block;margin-bottom:.6rem">3 things to take home</span>
+  <h2>帶回家的<em style="color:var(--peach);font-style:italic">三</em>句話</h2>
+  <div class="takeaway-grid">
+    <div class="takeaway">
+      <span class="num">№ 01</span>
+      <h3>相信 Toxidrome，<br>別信病人的嘴。</h3>
+      <p>VS 4 個 + 瞳孔 + 皮膚 = 90% 的中毒答案。<strong>尿液 tox 是輔助</strong>——陽性可能假、陰性可能漏（fentanyl、lorazepam、alprazolam 都驗不到）。</p>
+    </div>
+    <div class="takeaway">
+      <span class="num">№ 02</span>
+      <h3>看到這四個，<br>立刻叫醫師。</h3>
+      <p><strong>QRS &gt; 100 ms　／　T &gt; 40°C　／　抽搐　／　GCS 突然掉</strong>——任何一個都是 ICU 等級警訊。順手準備 <strong>NaHCO₃、BZD、冰袋</strong>。</p>
+    </div>
+    <div class="takeaway">
+      <span class="num">№ 03</span>
+      <h3>救人前，<br>先救你自己。</h3>
+      <p>不明粉末／液體／衣物味道 → 戴 PPE、脫衣、沖洗。家屬情緒不穩 → 叫保全。<strong>你倒下，沒人能救病人。</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 36 結語 -->
+<section class="slide closing-slide" data-notes="結語。台灣毒物諮詢專線 02-2871-7121（榮總 24 hr）。鼓勵把口訣貼護理站。">
+  <span class="slide-tag" style="position:absolute">36 ／ 結語</span>
+  <span class="source-tag" style="position:absolute">EMCrit IBCC · Approach to Poisoned Patient</span>
+  <div class="title-eyebrow" style="margin-bottom:2rem">— 結業 ／ 毒物速通五招 ─</div>
+  <h1 style="font-size:clamp(2.8rem,5.5vw,4.5rem)">五招拆完了。<br>下次班上有不對勁的病人，<br>你會<span style="color:var(--peach);font-style:italic">先看出來</span>。</h1>
+  <p class="lede" style="margin-top:2rem">記得自問——<br><strong style="color:var(--ink)">vital signs 怎麼動？瞳孔怎麼樣？皮膚乾還是濕？</strong></p>
+  <p style="margin-top:2.5rem;font-size:1.55rem;color:var(--ink-faint);max-width:55ch;text-align:center;line-height:1.7">
+    台灣毒物諮詢專線（24 hr）<br>
+    <strong style="color:var(--peach);font-family:JetBrains Mono;font-size:2.2rem;letter-spacing:.05em">02 – 2871 – 7121</strong><br>
+    <span style="font-size:1.5rem;color:var(--ink-faint)">榮總臨床毒物與職業醫學部</span>
+  </p>
+  <div class="signoff">EMCrit IBCC ／ Q & A 開始</div>
+</section>
+
+</div>
+
+<div id="notes"><div class="label">講者備註　·　按 N 關閉</div><div id="notes-content"></div></div>
+
+<div id="chrome">
+  <button class="nav-btn" id="prev">◂ 上一張</button>
+  <div id="counter"><span class="current">01</span> ／ 36</div>
+  <button class="nav-btn" id="next">下一張 ▸</button>
+</div>
+
+<div id="hint">
+  <kbd>←</kbd><kbd>→</kbd> 換頁　·　<kbd>N</kbd> 講者備註　·　<kbd>F</kbd> 全螢幕
+</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.querySelector('#counter .current');
+  const totalEl = document.querySelector('#counter');
+  const progress = document.getElementById('progress');
+  const notes = document.getElementById('notes');
+  const notesContent = document.getElementById('notes-content');
+  let current = 0;
+
+  totalEl.innerHTML = '<span class="current">01</span> ／ ' + String(slides.length).padStart(2,'0');
+
+  function showSlide(i){
+    slides.forEach((s,idx)=>s.classList.toggle('active', idx===i));
+    counter.textContent = String(i+1).padStart(2,'0');
+    progress.style.width = ((i+1)/slides.length*100) + '%';
+    notesContent.textContent = slides[i].dataset.notes || '（無備註）';
+  }
+
+  function next(){ if(current < slides.length-1){ current++; showSlide(current); } }
+  function prev(){ if(current > 0){ current--; showSlide(current); } }
+
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); next(); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key === 'Home'){ current = 0; showSlide(0); }
+    else if(e.key === 'End'){ current = slides.length-1; showSlide(current); }
+    else if(e.key === 'n' || e.key === 'N'){ notes.classList.toggle('show'); }
+    else if(e.key === 'f' || e.key === 'F'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('deck').addEventListener('click', e=>{
+    if(e.target.closest('.nav-btn') || e.target.closest('#notes')) return;
+    next();
+  });
+
+  showSlide(0);
+})();
+</script>
+</body>
+</html>

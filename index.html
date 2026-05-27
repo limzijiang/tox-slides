@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>毒物速通 · 中毒病人 60 分鐘教學 ｜ 雙版本</title>
+<meta name="description" content="新進急診與加護病房護理師的中毒病人 60 分鐘速成教學。改編自 EMCrit IBCC『Approach to the Poisoned Patient』。提供兩種結構：案件驅動 v1 與五招大綱 v2。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f5f1e8;--cream-dark:#ebe5d3;--paper:#fdfaf3;
+    --ink:#1c1a17;--ink-soft:#3d3933;--ink-faint:#6f6a5f;
+    --peach:#d97757;--stamp:#b8302b;--line:#d4cfc1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{font-size:18px;scroll-behavior:smooth}
+  body{
+    min-height:100vh;background:var(--cream);color:var(--ink);
+    font-family:'Noto Sans TC',sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity:.3;
+  }
+  main{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:8vh 6vw 6vh}
+  h1,h2,h3{font-family:'Noto Serif TC',serif;font-weight:700;line-height:1.1;letter-spacing:-.01em}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:1rem;letter-spacing:.25em;color:var(--peach);text-transform:uppercase;margin-bottom:1.4rem}
+  h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900}
+  h1 em{color:var(--peach);font-style:italic;font-weight:700}
+  .lede{margin-top:1.6rem;font-size:1.45rem;color:var(--ink-soft);max-width:55ch;font-weight:300;line-height:1.6}
+  .source{margin-top:1.3rem;font-family:'JetBrains Mono',monospace;font-size:.95rem;color:var(--ink-faint);letter-spacing:.1em}
+  .source a{color:var(--peach);text-decoration:none;border-bottom:1px dashed var(--peach)}
+  .source a:hover{color:var(--stamp);border-color:var(--stamp)}
+
+  .versions{
+    margin-top:5vh;display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+  }
+  .ver{
+    background:var(--paper);border:1px solid var(--line);border-radius:3px;
+    padding:2.6rem 2.4rem;text-decoration:none;color:inherit;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    position:relative;display:block;
+  }
+  .ver::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:6px;
+    background:var(--peach);border-radius:3px 3px 0 0;
+  }
+  .ver:hover{transform:translateY(-3px);box-shadow:0 14px 30px -20px rgba(28,26,23,.35);border-color:var(--peach)}
+  .ver .tag{font-family:'JetBrains Mono',monospace;color:var(--peach);font-size:.95rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:.6rem;display:block}
+  .ver h2{font-size:2.2rem;margin-bottom:.6rem;color:var(--ink)}
+  .ver .desc{font-size:1.15rem;color:var(--ink-soft);line-height:1.55;margin-bottom:1.2rem}
+  .ver .meta{display:flex;gap:1.4rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--ink-faint);letter-spacing:.08em;padding-top:1rem;border-top:1px dashed var(--line)}
+  .ver .meta b{color:var(--ink);font-weight:600;font-family:'Noto Sans TC',sans-serif;text-transform:none;letter-spacing:0}
+  .ver .arrow{display:inline-block;color:var(--peach);font-family:'JetBrains Mono',monospace;font-size:1.1rem;margin-top:1.2rem;letter-spacing:.1em}
+
+  .info{
+    margin-top:5vh;background:var(--paper);border-left:4px solid var(--peach);
+    padding:1.6rem 1.8rem;font-size:1.1rem;line-height:1.7;
+  }
+  .info b{color:var(--ink);font-weight:700}
+
+  footer{
+    margin-top:5vh;padding-top:2rem;border-top:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--ink-faint);
+    letter-spacing:.05em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  }
+  footer a{color:var(--peach);text-decoration:none}
+  footer a:hover{color:var(--stamp)}
+
+  @media (max-width:760px){
+    html{font-size:16px}
+    .versions{grid-template-columns:1fr;gap:1.4rem}
+    main{padding:6vh 5vw 4vh}
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">— 護理進階課程 ／ EMCrit IBCC 改編</div>
+  <h1>毒物速通 ／<br>中毒病人 <em>60 分鐘</em> 教學</h1>
+  <p class="lede">給新進急診與加護病房護理師的中毒病人速成。<br>提供兩種結構，挑一個適合您場合的開講。</p>
+  <p class="source">SOURCE ／ <a href="https://emcrit.org/ibcc/tox/" target="_blank" rel="noopener">emcrit.org/ibcc/tox</a> · IBCC Approach to the Poisoned Patient</p>
+
+  <div class="versions">
+    <a class="ver" href="tox-detective-academy-v1.html">
+      <span class="tag">V1 ／ Case-driven</span>
+      <h2>毒物偵探社</h2>
+      <p class="desc">五個案件當主軸，破案式教學。節奏緊湊、故事性強，適合喚醒疲倦學員、訓練臨床推理。</p>
+      <div class="meta"><span>30 張</span><span>5 cases</span><b>故事流</b></div>
+      <div class="arrow">▸ 開啟 V1</div>
+    </a>
+    <a class="ver" href="tox-detective-academy-v2.html">
+      <span class="tag">V2 ／ Lecture</span>
+      <h2>五招速通手冊</h2>
+      <p class="desc">純教學結構，五招拆解。含尿液 tox 假陽性／假陰性、Na 通道阻斷 ECG 細節，適合複習與深度教學。</p>
+      <div class="meta"><span>36 張</span><span>5 chapters</span><b>結構流</b></div>
+      <div class="arrow">▸ 開啟 V2</div>
+    </a>
+  </div>
+
+  <div class="info">
+    <b>操作：</b>用 <kbd>←</kbd> <kbd>→</kbd> 換頁　·　<kbd>Space</kbd> 揭線索（v1）　·　<kbd>N</kbd> 開關講者備註　·　<kbd>F</kbd> 全螢幕<br>
+    <b>列印：</b>瀏覽器 Ctrl/Cmd+P → 分頁印（每張一頁）。<br>
+    <b>提醒：</b>內容為教學用，臨床決策請以您所在機構 SOP 與毒物科會診為準。
+  </div>
+
+  <footer>
+    <span>毒物速通 · v1+v2 ｜ Built with Claude design</span>
+    <span><a href="https://github.com/limzijiang/tox-slides" target="_blank" rel="noopener">github.com/limzijiang/tox-slides</a></span>
+  </footer>
+</main>
+</body>
+</html>
