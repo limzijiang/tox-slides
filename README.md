@@ -1,6 +1,6 @@
 # 毒物速通 ／ 中毒病人 60 分鐘教學
 
-新進急診與加護病房護理師的中毒病人速成教學，改編自 [EMCrit IBCC · Approach to the Poisoned Patient](https://emcrit.org/ibcc/tox/)。
+新進急診與加護病房護理師的中毒病人速成教學。
 
 ## 🔗 線上播放
 
@@ -40,7 +40,7 @@
 - 五大 Toxidrome（交感／抗膽鹼／膽鹼性／鴉片／鎮靜安眠）
 - 病史不可靠的三大陷阱與問家屬技巧
 - VS / PE / ECG 暗號（含 Na 通道阻斷四指紋）
-- 尿液 tox 完整假陽性／假陰性清單（依 EMCrit）
+- 尿液 tox 完整假陽性／假陰性清單
 - 解毒劑速查 + 活性碳 + MDAC + WBI 適應症
 - 四大致命併發症處置（抽搐／躁動／高體溫／心律不整）
 
@@ -50,4 +50,4 @@
 
 ## 📜 授權
 
-教學內容改編自 EMCrit IBCC（CC BY-NC-SA 4.0）。本投影片同採 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)。
+本投影片採 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 授權。

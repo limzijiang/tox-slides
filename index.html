@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>毒物速通 · 中毒病人 60 分鐘教學 ｜ 雙版本</title>
-<meta name="description" content="新進急診與加護病房護理師的中毒病人 60 分鐘速成教學。改編自 EMCrit IBCC『Approach to the Poisoned Patient』。提供兩種結構：案件驅動 v1 與五招大綱 v2。">
+<meta name="description" content="新進急診與加護病房護理師的中毒病人 60 分鐘速成教學。提供兩種結構：案件驅動 v1 與五招大綱 v2。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -32,9 +32,27 @@
   h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900}
   h1 em{color:var(--peach);font-style:italic;font-weight:700}
   .lede{margin-top:1.6rem;font-size:1.45rem;color:var(--ink-soft);max-width:55ch;font-weight:300;line-height:1.6}
-  .source{margin-top:1.3rem;font-family:'JetBrains Mono',monospace;font-size:.95rem;color:var(--ink-faint);letter-spacing:.1em}
-  .source a{color:var(--peach);text-decoration:none;border-bottom:1px dashed var(--peach)}
-  .source a:hover{color:var(--stamp);border-color:var(--stamp)}
+
+  /* QR code corner */
+  .qr-corner{
+    position:fixed;top:24px;right:24px;z-index:100;
+    width:140px;text-align:center;text-decoration:none;
+    font-family:'JetBrains Mono',monospace;font-size:.78rem;
+    letter-spacing:.16em;color:var(--ink-faint);
+    text-transform:uppercase;
+  }
+  .qr-corner img{
+    display:block;width:140px;height:140px;
+    background:var(--paper);padding:10px;
+    border:1px solid var(--line);border-radius:4px;
+    box-shadow:0 6px 20px -10px rgba(28,26,23,.4);
+    transition:transform .2s ease;
+  }
+  .qr-corner:hover img{transform:scale(1.04);border-color:var(--peach)}
+  .qr-corner .label{
+    display:block;margin-top:.5rem;color:var(--ink-faint);
+  }
+  .qr-corner .label b{color:var(--peach);font-weight:600}
 
   .versions{
     margin-top:5vh;display:grid;grid-template-columns:1fr 1fr;gap:2rem;
@@ -75,15 +93,23 @@
     html{font-size:16px}
     .versions{grid-template-columns:1fr;gap:1.4rem}
     main{padding:6vh 5vw 4vh}
+    .qr-corner{width:96px;top:14px;right:14px}
+    .qr-corner img{width:96px;height:96px;padding:6px}
+    .qr-corner .label{font-size:.65rem;letter-spacing:.12em}
   }
 </style>
 </head>
 <body>
+
+<a class="qr-corner" href="./" title="掃我跳此頁">
+  <img src="img/qr-landing.png" alt="QR code to this landing page">
+  <span class="label"><b>掃我</b> · 跳此頁</span>
+</a>
+
 <main>
-  <div class="eyebrow">— 護理進階課程 ／ EMCrit IBCC 改編</div>
+  <div class="eyebrow">— 護理進階課程 ／ 60 分鐘速成</div>
   <h1>毒物速通 ／<br>中毒病人 <em>60 分鐘</em> 教學</h1>
   <p class="lede">給新進急診與加護病房護理師的中毒病人速成。<br>提供兩種結構，挑一個適合您場合的開講。</p>
-  <p class="source">SOURCE ／ <a href="https://emcrit.org/ibcc/tox/" target="_blank" rel="noopener">emcrit.org/ibcc/tox</a> · IBCC Approach to the Poisoned Patient</p>
 
   <div class="versions">
     <a class="ver" href="tox-detective-academy-v1.html">
